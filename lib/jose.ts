@@ -1,0 +1,16 @@
+// JSON Object Signing and Encryption
+export enum Header {
+    alg = 'alg', // specified in jwa
+    enc = 'enc',
+    zip = 'zip',
+    jku = 'jku', // (JWK Set URL) Header Parameter
+    jwk = 'jwk',
+    kid = 'kid',
+    x5u = 'x5u',
+    x5c = 'x5c',
+    x5t = 'x5t',
+    x5t_S256 = 'x5t#S256',
+    typ = 'typ',
+    cty = 'cty',
+    crit = 'crit'
+}
