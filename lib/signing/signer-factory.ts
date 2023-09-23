@@ -8,11 +8,11 @@ import * as crypto from "crypto";
  */
 export type SignerParams = Record<Header, string>;
 
-export default class SignerFactory {
-    static getInstance(signingParams: SignerParams)  {
-        switch (signingParams.alg) {
-            case(Algorithm.HS512.valueOf()):
-                const hmac = crypto.createHmac('sha512', signingParams.jwk)
-        }
-    }
-}
+// export default class SignerFactory {
+//     static getInstance(signingParams: SignerParams)  {
+//         switch (signingParams.alg) {
+//             case(Algorithm.HS512.valueOf()):
+//                 const hmac = crypto.createHmac('sha512', )
+//         }
+//     }
+// }
