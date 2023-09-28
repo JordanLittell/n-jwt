@@ -9,7 +9,6 @@ export class JWKParser {
     constructor() {
     }
 
-
     public parse(payload: string) : JWK {
         const jwkJSON = JSON.parse(payload);
 
