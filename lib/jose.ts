@@ -9,7 +9,7 @@ export enum Header {
     x5u = 'x5u',
     x5c = 'x5c',
     x5t = 'x5t',
-    x5t_S256 = 'x5t#S256',
+    x5t_S256 = 'x5t_S256',
     typ = 'typ',
     cty = 'cty',
     crit = 'crit'

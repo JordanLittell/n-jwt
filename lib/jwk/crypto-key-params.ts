@@ -6,6 +6,15 @@
 export type CryptoKeyParam = RSAPublic | RSAPrivate | ECPrivate | ECPublic | Octet;
 // TODO : make CryptoKey class with type (RSA), access level (public|private), and params {x,y,crv}
 
+
+export const isRSAPublic = (key: CryptoKeyParam): key is RSAPublic => {
+    return (key as RSAPublic).kind === "RSAPublic";
+}
+
+export const isOctet = (key: CryptoKeyParam): key is Octet => {
+    return (key as Octet).kind === "Octet";
+}
+
 export interface RSAPrivate {
     d: string,
     p: string,
@@ -14,29 +23,35 @@ export interface RSAPrivate {
     dq: string,
     qi: string,
     oth: Array<RSAPrime>,
+    kind: string
 }
 
 export interface RSAPrime {
     r: string,
     d: string,
-    t: string
+    t: string,
+    kind: string
 }
 
 export interface RSAPublic {
     n: string,
-    e: string
+    e: string,
+    kind: string
 }
 
 export interface ECPrivate {
     crv: string,
     x: string,
-    y: string
+    y: string,
+    kind: string
 }
 
 export interface ECPublic {
     d: string,
+    kind: string
 }
 
 export interface Octet {
-    k: string;
+    k: string,
+    kind: string
 }

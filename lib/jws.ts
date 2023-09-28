@@ -3,57 +3,47 @@
  * using JSON-based data structures.
  * RFC: https://datatracker.ietf.org/doc/html/rfc7515
  */
-import {Algorithm} from "./jwa";
-import {SignerParams} from "./signing/signer-factory";
+import {Algorithm, NodeAlgorithm} from "./jwa";
 import * as crypto from "crypto";
 import {Header} from "./jose";
-import {btoa} from "buffer";
 import {JWK} from "./jwk/jwk";
 import {JWKParser} from "./jwk/jwk-parser";
-import {Octet} from "./jwk/crypto-key-params";
+import {CryptoKeyParam, isOctet} from "./jwk/crypto-key-params";
+import {toASCII} from "punycode";
+import {base64URLEncode} from "./encoding";
 
-/**
- * Compute the JWS Signature in the manner defined for the particular algorithm being used over the JWS Signing Input
- * this will be used as the payload for the JWS
- */
-class Signer {
-
-    algorithm: string;
-    key: string;
-
-    constructor(signingParams: SignerParams) {
-        this.algorithm = signingParams.alg;
-        this.key = signingParams.kid;
-    }
-
-    sign (message: string) {
-        switch (this.algorithm) {
-            case(Algorithm.HS512.valueOf()):
-                const hmac = crypto.createHmac('sha512', this.key)
-                hmac.digest('hex')
-        }
-    }
-}
-
-class JWS {
+export class JWS {
     // Note that the payload can be any content and need not be a representation of a JSON object.
     payload: string;
-    headers: Record<Header, string>;
-    signature: string;
+    headers: Partial<Record<Header, string>>;
+    protectedHeaders: Partial<Record<Header, string>>;
 
-    constructor(headers: Record<Header, string>, payload: string) {
+    constructor(headers: Partial<Record<Header, string>>, payload: string) {
         this.payload = payload;
         this.headers = headers;
+        const {typ, alg} = this.headers
+        this.protectedHeaders = {typ, alg};
     }
 
     isValid () : boolean {
         return true
     }
 
+    /**
+     * The JWS Compact
+     *        Serialization of this result is BASE64URL(UTF8(JWS Protected
+     *        Header)) || '.' || BASE64URL(JWS Payload) || '.' || BASE64URL(JWS
+     *        Signature)
+     */
     serialize () : string {
-        const headerString = JSON.stringify(this.headers);
-        const encodedHeaders = btoa(encodeURI(headerString));
-        return encodedHeaders + '.' + btoa(encodeURI(this.payload)) + '.' + this.signature;
+        console.log(JSON.stringify(this.protectedHeaders));
+        const encodedHeaders = base64URLEncode(JSON.stringify(this.protectedHeaders));
+        const encodedPayload = base64URLEncode(this.payload);
+        return encodedHeaders + '.' + encodedPayload + '.' + this.getSignature();
+    }
+
+    static parse (token: string) : JWS {
+        return new JWS({x5t_S256: "", alg: "", crit: "", cty: "", enc: "", jku: "", kid: "", typ: "", x5c: "", x5t: "", x5u: "", zip: "", jwk: ''}, '');
     }
 
     /**
@@ -65,7 +55,7 @@ class JWS {
      *        accurately representing the algorithm used to construct the JWS
      *        Signature.
      */
-    private sign() : string {
+    private getSignature() : string {
         const keyId = this.headers.kid;
         const jwkURL = this.headers.jku;
         const jwkPayload = this.headers.jwk;
@@ -74,17 +64,25 @@ class JWS {
 
         const parser : JWKParser = new JWKParser();
 
-        if(jwkPayload) {
-            jwk = parser.parse(jwkPayload)
-            if(jwk.kid != keyId) throw new Error(`The jwk has invalid kid. Expected ${keyId} but has ${jwk.kid}`)
-        }
+        const jwkInput : string = jwkPayload ? jwkPayload : "";
 
-        // switch (this.headers.alg) {
-        //     case(Algorithm.HS512.valueOf()):
-        //     const {k} : Octet = jwk.key_params;
-        //     const hmac = crypto.createHmac('sha512', )
-        //     hmac.digest('hex')
-        // }
+        jwk = parser.parse(jwkInput)
+        if(jwk.kid != keyId) throw new Error(`The jwk has invalid kid. Expected ${keyId} but has ${jwk.kid}`)
+
+        const signingInput = toASCII(base64URLEncode(JSON.stringify(this.protectedHeaders))) + '.' +  base64URLEncode(this.payload);
+        const keyParams : CryptoKeyParam =  jwk.key_params
+
+        switch (this.headers.alg) {
+            // type narrowing
+            case(Algorithm.HS512.valueOf()):
+                if(isOctet(keyParams)) {
+                    const {k} = keyParams;
+                    const hmac = crypto.createHmac(NodeAlgorithm.HS512, k)
+                    hmac.update(signingInput)
+                    return hmac.digest('base64url')
+                }
+                return ''
+        }
 
         return '';
     }

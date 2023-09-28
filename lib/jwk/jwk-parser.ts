@@ -9,6 +9,7 @@ export class JWKParser {
     constructor() {
     }
 
+
     public parse(payload: string) : JWK {
         const jwkJSON = JSON.parse(payload);
 
@@ -31,7 +32,7 @@ export class JWKParser {
 
                 if(this.valuesPresent([crv, x, y])) {
                     return builder
-                        .withECPrivateParams({crv, x, y})
+                        .withECPrivateParams({crv, x, y, kind: 'ECPrivate'})
                         .build();
                 }
 
@@ -39,24 +40,25 @@ export class JWKParser {
 
                 if(this.valuesPresent([d])) {
                     return builder
-                        .withECPublicParams({d})
+                        .withECPublicParams({d, kind: 'ECPublic'})
                         .build();
                 }
                 throw new TypeError(`Missing encryption key parameters for JWK of type ${kty}`);
             }
+
             case RSA_KEY_TYPE: {
 
                 const {d, p, q, dp, dq, qi, oth}: RSAPrivate = jwkJSON;
                 if(this.valuesPresent([d, p, q, dp, dq, qi, oth])) {
                     return builder
-                        .withRSAPrivateParams({d, p, q, dp, dq, qi, oth})
+                        .withRSAPrivateParams({d, p, q, dp, dq, qi, oth, kind: 'RSAPrivate'})
                         .build();
                 }
 
                 const {n, e}: RSAPublic = jwkJSON;
                 if(this.valuesPresent([n, e])) {
                     return builder
-                        .withRSAPublicParams({n, e})
+                        .withRSAPublicParams({n, e, kind: 'RSAPublic'})
                         .build();
                 }
 
@@ -67,7 +69,7 @@ export class JWKParser {
                 const {k}: Octet = jwkJSON;
                 if(this.valuesPresent([k])) {
                     return builder
-                        .withOctetParams({k})
+                        .withOctetParams({k, kind: 'Octet'})
                         .build();
                 }
 
