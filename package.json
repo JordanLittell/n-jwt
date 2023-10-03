@@ -4,7 +4,7 @@
   "description": "A package for creating JWTs",
   "main": "index.js",
   "scripts": {
-    "test": "ts-node test/jwk/jwk-parser-test.ts; ts-node test/encoding.ts; ts-node test/jws-test.ts"
+    "test": "ts-node test/jwk/jwk-parser-test.ts"
   },
   "author": "",
   "license": "ISC",

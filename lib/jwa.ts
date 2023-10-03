@@ -13,46 +13,23 @@
 export enum Algorithm {
     // HMAC algorithms
     HS512 = 'HS512',
-    HS38 = 'HS384',
-    HS25 = 'HS256',
+    HS384 = 'HS384',
+    HS256 = 'HS256',
 
     // RSA Algorithms
-    RS25 = 'RS256',
-    RS38 = 'RS384',
-    RS51 = 'RS512',
+    RS256 = 'RS256',
+    RS384 = 'RS384',
+    RS512 = 'RS512',
 
     // ECDSA
-    ES25 = 'ES256',
-    ES38 = 'ES384',
-    ES51 = 'ES512',
+    ES256 = 'ES256',
+    ES384 = 'ES384',
+    ES512 = 'ES512',
 
     // RSASSA-PSS
-    PS25 = 'PS256',
-    PS38 = 'PS384',
-    PS51 = 'PS512',
-    none = 'none'
-}
-
-export enum NodeAlgorithm {
-    // HMAC algorithms
-    HS512 = 'sha512',
-    HS38 = 'sha384',
-    HS25 = 'sha256',
-
-    // RSA Algorithms
-    RS25 = 'RS256',
-    RS38 = 'RS384',
-    RS51 = 'RS512',
-
-    // ECDSA
-    ES25 = 'ES256',
-    ES38 = 'ES384',
-    ES51 = 'ES512',
-
-    // RSASSA-PSS
-    PS25 = 'PS256',
-    PS38 = 'PS384',
-    PS51 = 'PS512',
+    PS256 = 'PS256',
+    PS384 = 'PS384',
+    PS512 = 'PS512',
     none = 'none'
 }
 
