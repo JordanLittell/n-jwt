@@ -1,5 +1,5 @@
 {
-  "name": "jwt",
+  "name": "n-jwt",
   "version": "1.0.0",
   "description": "A package for creating JWTs",
   "main": "index.js",
