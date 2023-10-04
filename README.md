@@ -1,3 +1,3 @@
-# Node JWT
+# Node JWT (n-jwt)
 
-This package contains an implementation of JWTs
+Produce and consume JSON objects secured with industry-standard encryption and signing algorithms.
