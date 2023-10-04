@@ -55,11 +55,3 @@ export const getAlgorithm = (algorithm?: string) : Algorithm => {
         default: throw new Error(`unrecognized alg: ${algorithm}`)
     }
 }
-
-
-
-
-
-
-
-
