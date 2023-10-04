@@ -8,11 +8,17 @@ export const isRSAPublic = (key: CryptoKeyParam): key is RSAPublic => {
     return (key as RSAPublic).kind === "RSAPublic";
 }
 
+export const isRSAPrivate = (key: CryptoKeyParam): key is RSAPrivate => {
+    return (key as RSAPrivate).kind === "RSAPrivate";
+}
+
 export const isOctet = (key: CryptoKeyParam): key is Octet => {
     return (key as Octet).kind === "Octet";
 }
 
 export interface RSAPrivate {
+    n: string,
+    e: string,
     d: string,
     p: string,
     q: string,

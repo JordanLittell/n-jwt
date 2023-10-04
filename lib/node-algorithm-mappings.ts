@@ -8,9 +8,9 @@ export const NodeAlgorithmMappings = {
     HS256: 'sha256',
 
     // RSA Algorithms
-    RS256: 'RS256',
-    RS384: 'RS384',
-    RS512: 'RS512',
+    RS256: 'RSA-SHA256',
+    RS384: 'RSA-SHA384',
+    RS512: 'RSA-SHA512',
 
     // ECDSA
     ES256: 'ES256',

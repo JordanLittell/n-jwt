@@ -67,4 +67,18 @@ export class JWK {
 
         this.key_params = params.key_params;
     }
+
+    serialize() : string {
+        return JSON.stringify({
+            kty: this.kty,
+            use: this.use,
+            key_ops: this.key_ops,
+            kid: this.kid,
+            x509URL: this.x509URL,
+            x509CertChain: this.x509CertChain,
+            x509Thumbprint: this.x509Thumbprint,
+            x509S256Thumbprint: this.x509S256Thumbprint,
+            ...this.key_params
+        })
+    }
 }

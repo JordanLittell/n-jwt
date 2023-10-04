@@ -47,14 +47,13 @@ export class JWKParser {
 
             case RSA_KEY_TYPE: {
 
-                const {d, p, q, dp, dq, qi, oth}: RSAPrivate = jwkJSON;
-                if(this.valuesPresent([d, p, q, dp, dq, qi, oth])) {
+                const {d, n, e, p, q, dp, dq, qi, oth}: RSAPrivate = jwkJSON;
+                if(this.valuesPresent([d])) {
                     return builder
-                        .withRSAPrivateParams({d, p, q, dp, dq, qi, oth, kind: 'RSAPrivate'})
+                        .withRSAPrivateParams({n, e, d, p, q, dp, dq, qi, oth, kind: 'RSAPrivate'})
                         .build();
                 }
 
-                const {n, e}: RSAPublic = jwkJSON;
                 if(this.valuesPresent([n, e])) {
                     return builder
                         .withRSAPublicParams({n, e, kind: 'RSAPublic'})

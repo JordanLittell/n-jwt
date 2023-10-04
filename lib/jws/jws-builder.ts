@@ -11,14 +11,14 @@ export class JwsBuilder {
     jwk: JWK;
     headers: Partial<Record<Header, string>>;
     protectedHeaders: Partial<Record<Header, string>>;
-    payload: Record<string, string>;
+    payload: Record<any, any>;
 
     public withHeaders(headers: Partial<Record<Header, string>>) {
         this.headers = headers;
         return this;
     }
 
-    public withPayload(payload: Record<string, string>) {
+    public withPayload(payload: Record<any, any>) {
         this.payload = payload;
         return this;
     }
