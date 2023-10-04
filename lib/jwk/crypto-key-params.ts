@@ -4,9 +4,6 @@
  * These parameters should be present in the JWK and should correspond to the kty
  */
 export type CryptoKeyParam = RSAPublic | RSAPrivate | ECPrivate | ECPublic | Octet;
-// TODO : make CryptoKey class with type (RSA), access level (public|private), and params {x,y,crv}
-
-
 export const isRSAPublic = (key: CryptoKeyParam): key is RSAPublic => {
     return (key as RSAPublic).kind === "RSAPublic";
 }

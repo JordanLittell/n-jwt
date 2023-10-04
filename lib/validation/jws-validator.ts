@@ -1,30 +1,25 @@
 import * as crypto from "crypto";
-import {NodeAlgorithm} from "../jwa";
-import {base64URLDecode} from "../encoding";
+import {getAlgorithm} from "../jwa";
+import {base64URLEncode} from "../encoding";
+import {SignerFactory} from "../signing/signer-factory";
+import {JWS} from "../jws/jws";
+import {JWK} from "../jwk/jwk";
 
 export class JwsValidator {
 
-    readonly signature: string;
-    readonly headers: string;
-    readonly payload: string;
+    private jws: JWS;
+    private jwk: JWK;
 
-
-    constructor(token: string) {
-        const [headers, payload, signature] = token.split('.');
-        this.signature = signature;
-        this.payload = payload;
-        this.headers = headers;
+    constructor(jws: JWS, jwk: JWK) {
+        this.jws = jws;
+        this.jwk = jwk;
     }
 
-    validate(key: string) {
-        const signingInput = `${this.headers}.${this.payload}`;
+    validate() {
+        const signer = new SignerFactory(getAlgorithm(this.jws.parsedHeaders.alg));
+        const signingInput = `${base64URLEncode(this.jws.headers)}.${base64URLEncode(this.jws.payload)}`;
+        const calculatedSig = signer.create().sign(signingInput, this.jwk);
 
-        const hmac = crypto.createHmac('sha256', key)
-        hmac.update(signingInput)
-        const computedSignature = hmac.digest()
-
-        const tokenSignature = Buffer.from(base64URLDecode(this.signature));
-
-        return computedSignature.toString('base64url') == tokenSignature.toString('base64url');
+        return (calculatedSig === this.jws.signature);
     }
 }
