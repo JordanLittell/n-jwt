@@ -1,8 +1,11 @@
-import {getAlgorithm} from "../jwa";
+import {Algorithm, getAlgorithm} from "../jwa";
 import {base64URLEncode} from "../encoding";
 import {SignerFactory} from "../signing/signer-factory";
 import {JWS} from "../jws/jws";
 import {JWK} from "../jwk/jwk";
+import * as crypto from "crypto";
+import {NodeAlgorithmMappings} from "../node-algorithm-mappings";
+import {constants} from "crypto";
 
 export class JwsValidator {
 
@@ -15,10 +18,35 @@ export class JwsValidator {
     }
 
     validate() {
-        const signer = new SignerFactory(getAlgorithm(this.jws.parsedHeaders.alg));
         const signingInput = `${base64URLEncode(this.jws.headers)}.${base64URLEncode(this.jws.payload)}`;
-        const calculatedSig = signer.create().sign(signingInput, this.jwk);
 
-        return (calculatedSig === this.jws.signature);
+        const alg = this.jws.parsedHeaders.alg;
+
+        switch(alg) {
+            case Algorithm.HS256.toString():
+            case Algorithm.HS384.toString():
+            case Algorithm.HS512.toString(): {
+                const signer = new SignerFactory(getAlgorithm(alg));
+
+                const calculatedSig = signer.create().sign(signingInput, this.jwk);
+
+                return (calculatedSig === this.jws.signature);
+            }
+
+            case Algorithm.RS256.toString(): {
+                const publicKey = crypto.createPublicKey({
+                    key: JSON.parse(this.jwk.serialize()),
+                    format: 'jwk',
+                    encoding: 'utf8'
+                });
+
+                const verify = crypto.createVerify(NodeAlgorithmMappings[Algorithm.RS256]);
+                verify.update(signingInput);
+                return verify.verify({key: publicKey, padding: constants.RSA_PKCS1_PADDING}, this.jws.signature, 'base64url');
+            }
+
+            default: throw new Error(`Unsupported signing algorithm ${alg}!`);
+        }
+
     }
 }

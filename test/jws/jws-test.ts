@@ -4,6 +4,7 @@ import * as assert from "assert";
 import {JWKParser} from "../../lib/jwk/jwk-parser";
 import {JwsBuilder} from "../../lib/jws/jws-builder";
 import {JWK} from "../../lib/jwk/jwk";
+import {JwsValidator} from "../../lib/validation/jws-validator";
 
 test("parsing works", () => {
     const token = "eyJ0eXAiOiJKV1QiLA0KICJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJqb2UiLA0KICJleHAiOjEzMDA4MTkzODAsDQogImh0dHA6Ly9leGFtcGxlLmNvbS9pc19yb290Ijp0cnVlfQ.dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk";
@@ -79,11 +80,12 @@ describe('hashing algorithms', () => {
         const builder = new JwsBuilder();
         const jws = builder
             .withHeaders({alg: "RS256"})
-            .withProtectedHeaders({ alg: "RS256"})
+            .withProtectedHeaders({alg: "RS256"})
             .withJWK(jwk)
             .withPayload({"iss":"joe",  "exp": 1300819380, "http://example.com/is_root": true})
             .build();
 
         assert.doesNotThrow(() => jws.serialize());
+        assert.equal(new JwsValidator(jws, jwk).validate(), true);
     });
 });
