@@ -3,19 +3,6 @@
  * The use cases for the cryptographic keys can be encryption or signing
  * These parameters should be present in the JWK and should correspond to the kty
  */
-export type CryptoKeyParam = RSAPublic | RSAPrivate | ECPrivate | ECPublic | Octet;
-export const isRSAPublic = (key: CryptoKeyParam): key is RSAPublic => {
-    return (key as RSAPublic).kind === "RSAPublic";
-};
-
-export const isRSAPrivate = (key: CryptoKeyParam): key is RSAPrivate => {
-    return (key as RSAPrivate).kind === "RSAPrivate";
-};
-
-export const isOctet = (key: CryptoKeyParam): key is Octet => {
-    return (key as Octet).kind === "Octet";
-};
-
 export interface RSAPrivate {
     n: string,
     e: string,

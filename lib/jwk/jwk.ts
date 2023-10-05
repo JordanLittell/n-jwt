@@ -76,17 +76,17 @@ export class JWK {
     // parameters used for generating cryptographic keys:
 
     // RSAPublic
-    n?: string
-    e?: string
+    n?: string;
+    e?: string;
 
     // RSAPrivate
-    d?: string   // ESPublic will just have a d
-    p?: string
-    q?: string
-    dp?: string
-    dq?: string
-    qi?: string
-    oth?: RSAPrime[]
+    d?: string;   // ESPublic will just have a d
+    p?: string;
+    q?: string;
+    dp?: string;
+    dq?: string;
+    qi?: string;
+    oth?: RSAPrime[];
 
     // EC Private
     crv?: string;

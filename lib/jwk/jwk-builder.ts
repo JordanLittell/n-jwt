@@ -1,4 +1,4 @@
-import {CryptoKeyParam, ECPrivate, ECPublic, Octet, RSAPrivate, RSAPublic} from "./crypto-key-params";
+import {ECPrivate, ECPublic, Octet, RSAPrivate, RSAPublic} from "./crypto-key-params";
 import {Algorithm} from "../jwa";
 import {JWK, KeyOperation, KeyType, RSAPrime, Usage} from "./jwk";
 
@@ -115,28 +115,28 @@ export class JwkBuilder {
 
     withRSAPrivateParams(params: RSAPrivate) : JwkBuilder{
         this.validate();
-        this.d = params.d
-        this.dp = params.dp
-        this.dq = params.dq
-        this.qi = params.qi
-        this.q = params.q
-        this.e = params.e
-        this.n = params.n
-        this.p = params.p
-        this.oth = params.oth
+        this.d = params.d;
+        this.dp = params.dp;
+        this.dq = params.dq;
+        this.qi = params.qi;
+        this.q = params.q;
+        this.e = params.e;
+        this.n = params.n;
+        this.p = params.p;
+        this.oth = params.oth;
         return this;
     }
 
     withRSAPublicParams(params: RSAPublic): JwkBuilder {
         this.validate();
-        this.e = params.e
-        this.n = params.n
+        this.e = params.e;
+        this.n = params.n;
         return this;
     }
 
     withECPublicParams(params: ECPublic): JwkBuilder {
         this.validate();
-        this.d = params.d
+        this.d = params.d;
         return this;
     }
 

@@ -1,7 +1,6 @@
 import * as crypto from "crypto";
 import {Signer} from "./signer";
 import {JWK} from "../jwk/jwk";
-import {CryptoKeyParam, isOctet} from "../jwk/crypto-key-params";
 import {NodeAlgorithmMappings} from "../node-algorithm-mappings";
 import {Algorithm} from "../jwa";
 
