@@ -3,6 +3,7 @@
  * RFC: https://datatracker.ietf.org/doc/html/rfc7517
  */
 import {Algorithm} from "../jwa";
+import {RSAPrime} from "./crypto-key-params";
 
 export const EC_KEY_TYPE = 'EC';
 export const RSA_KEY_TYPE = 'RSA';
@@ -10,14 +11,6 @@ export const OCT_KEY_TYPE = 'oct';
 
 export type KeyType = 'EC' | 'RSA' | 'oct';
 export type Usage = 'sig' | 'enc'; // sign or encrypt?
-
-
-export interface RSAPrime {
-    r: string,
-    d: string,
-    t: string,
-    kind: string
-}
 
 /**
  * Identifies what key is to be used for:

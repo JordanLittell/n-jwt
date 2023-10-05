@@ -1,6 +1,6 @@
-import {ECPrivate, ECPublic, Octet, RSAPrivate, RSAPublic} from "./crypto-key-params";
+import {ECPrivate, ECPublic, Octet, RSAPrime, RSAPrivate, RSAPublic} from "./crypto-key-params";
 import {Algorithm} from "../jwa";
-import {JWK, KeyOperation, KeyType, RSAPrime, Usage} from "./jwk";
+import {JWK, KeyOperation, KeyType, Usage} from "./jwk";
 
 export class JwkBuilder {
 
@@ -23,7 +23,7 @@ export class JwkBuilder {
     private dp?: string;
     private dq?: string;
     private qi?: string;
-    private crv?: string;
+    private crv?: 'P-256' | 'P-384' | 'P-521';
     private x?: string;
     private y?: string;
     private k?: string;
@@ -61,11 +61,6 @@ export class JwkBuilder {
             k: this.k,
             oth: this.oth
         });
-    }
-
-    withKeyParamsSet(value: boolean) : JwkBuilder {
-        this._keyParamsSet = value;
-        return this;
     }
 
     withKty(value: KeyType) : JwkBuilder {

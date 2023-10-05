@@ -13,35 +13,29 @@ export interface RSAPrivate {
     dq: string,
     qi: string,
     oth: RSAPrime[],
-    kind: string
 }
 
 export interface RSAPrime {
     r: string,
     d: string,
-    t: string,
-    kind: string
+    t: string
 }
 
 export interface RSAPublic {
     n: string,
-    e: string,
-    kind: string
+    e: string
 }
 
 export interface ECPrivate {
-    crv: string,
+    crv: 'P-256' | 'P-384' | 'P-521',
     x: string,
-    y: string,
-    kind: string
+    y: string
 }
 
 export interface ECPublic {
-    d: string,
-    kind: string
+    d: string
 }
 
 export interface Octet {
-    k: string,
-    kind: string
+    k: string
 }
