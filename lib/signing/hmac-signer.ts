@@ -29,11 +29,9 @@ export class HMACSigner implements Signer {
     sign(message: string, jwk: JWK): string {
         if(!this.isHMACAlgorithm(this.algorithm)) throw new Error(`Unsupported algorithm ${this.algorithm}!`);
 
-        const keyParams : CryptoKeyParam =  jwk.key_params;
 
-        if(isOctet(keyParams)) {
-            const {k} = keyParams;
-            const hmac = crypto.createHmac(NodeAlgorithmMappings[this.algorithm], k);
+        if(jwk.getKeyType() == 'Octet') {
+            const hmac = crypto.createHmac(NodeAlgorithmMappings[this.algorithm], jwk.k!);
             hmac.write(message);
             return hmac.digest('base64url');
         }

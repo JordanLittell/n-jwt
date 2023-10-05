@@ -1,6 +1,6 @@
 import {CryptoKeyParam, ECPrivate, ECPublic, Octet, RSAPrivate, RSAPublic} from "./crypto-key-params";
 import {Algorithm} from "../jwa";
-import {JWK, KeyOperation, KeyType, Usage} from "./jwk";
+import {JWK, KeyOperation, KeyType, RSAPrime, Usage} from "./jwk";
 
 export class JwkBuilder {
 
@@ -14,7 +14,20 @@ export class JwkBuilder {
     private _x5c?: string;
     private _x5t?: string;
     private _x5t_S256?: string;
-    private _key_params?: CryptoKeyParam;
+
+    private n?: string;
+    private e?: string;
+    private d?: string;
+    private p?: string;
+    private q?: string;
+    private dp?: string;
+    private dq?: string;
+    private qi?: string;
+    private crv?: string;
+    private x?: string;
+    private y?: string;
+    private k?: string;
+    private oth?: RSAPrime[];
 
     constructor() {
         this._keyParamsSet = false;
@@ -22,7 +35,6 @@ export class JwkBuilder {
 
     build() : JWK {
         const kty: KeyType = this._kty!;
-        const keyParams: CryptoKeyParam = this._key_params!;
 
         return new JWK({
             alg: this._alg,
@@ -34,7 +46,20 @@ export class JwkBuilder {
             x5t: this._x5t,
             x5t_S256: this._x5t_S256,
             x5u: this._x5u,
-            key_params: keyParams
+            // Crypto Key Params
+            n: this.n,
+            e: this.e,
+            d: this.d,
+            p: this.p,
+            q: this.q,
+            dp: this.dp,
+            dq: this.dq,
+            qi: this.qi,
+            crv: this.crv,
+            x: this.x,
+            y: this.y,
+            k: this.k,
+            oth: this.oth
         });
     }
 
@@ -90,31 +115,42 @@ export class JwkBuilder {
 
     withRSAPrivateParams(params: RSAPrivate) : JwkBuilder{
         this.validate();
-        this._key_params = params;
+        this.d = params.d
+        this.dp = params.dp
+        this.dq = params.dq
+        this.qi = params.qi
+        this.q = params.q
+        this.e = params.e
+        this.n = params.n
+        this.p = params.p
+        this.oth = params.oth
         return this;
     }
 
     withRSAPublicParams(params: RSAPublic): JwkBuilder {
         this.validate();
-        this._key_params = params;
+        this.e = params.e
+        this.n = params.n
         return this;
     }
 
     withECPublicParams(params: ECPublic): JwkBuilder {
         this.validate();
-        this._key_params = params;
+        this.d = params.d
         return this;
     }
 
     withECPrivateParams(params: ECPrivate): JwkBuilder {
         this.validate();
-        this._key_params = params;
+        this.crv = params.crv;
+        this.x = params.x;
+        this.y = params.y;
         return this;
     }
 
     withOctetParams(params: Octet): JwkBuilder {
         this.validate();
-        this._key_params = params;
+        this.k = params.k;
         return this;
     }
 

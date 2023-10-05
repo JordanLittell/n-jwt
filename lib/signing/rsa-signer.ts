@@ -2,7 +2,6 @@ import {Signer} from "./signer";
 import {JWK} from "../jwk/jwk";
 import {constants, createPrivateKey, createSign} from "crypto";
 import {Algorithm} from "../jwa";
-import {CryptoKeyParam, isRSAPrivate} from "../jwk/crypto-key-params";
 import {NodeAlgorithmMappings} from "../node-algorithm-mappings";
 
 export class RSASigner implements Signer {
@@ -16,9 +15,7 @@ export class RSASigner implements Signer {
     sign(message: string, jwk: JWK): string {
         if(!this.isRSAAlgorithm(this.algorithm)) throw new Error(`Unsupported algorithm ${this.algorithm}!`);
 
-        const keyParams : CryptoKeyParam =  jwk.key_params;
-
-        if(isRSAPrivate(keyParams)) {
+        if(jwk.getKeyType() == 'RSAPrivate') {
             const key = createPrivateKey({
                 key: JSON.parse(jwk.serialize()),
                 format: "jwk",

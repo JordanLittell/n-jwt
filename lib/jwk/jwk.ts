@@ -3,7 +3,6 @@
  * RFC: https://datatracker.ietf.org/doc/html/rfc7517
  */
 import {Algorithm} from "../jwa";
-import {CryptoKeyParam} from "./crypto-key-params";
 
 export const EC_KEY_TYPE = 'EC';
 export const RSA_KEY_TYPE = 'RSA';
@@ -11,6 +10,14 @@ export const OCT_KEY_TYPE = 'oct';
 
 export type KeyType = 'EC' | 'RSA' | 'oct';
 export type Usage = 'sig' | 'enc'; // sign or encrypt?
+
+
+export interface RSAPrime {
+    r: string,
+    d: string,
+    t: string,
+    kind: string
+}
 
 /**
  * Identifies what key is to be used for:
@@ -25,6 +32,8 @@ export type Usage = 'sig' | 'enc'; // sign or encrypt?
  */
 export type KeyOperation = 'sign' | 'verify' | 'encrypt' | 'decrypt' | 'wrapKey' | 'unwrapKey' | 'deriveKey' | 'deriveBits';
 
+type CryptoKeyParam = 'RSAPublic' | 'RSAPrivate' | 'ECPrivate' | 'ECPublic' | 'Octet';
+
 interface CommonKeyParameters {
     kty: KeyType,
     use?: Usage,
@@ -35,7 +44,21 @@ interface CommonKeyParameters {
     x5c?: string,
     x5t?: string,
     x5t_S256?: string,
-    key_params: CryptoKeyParam
+
+    // all crypto key params
+    n?: string,
+    e?: string,
+    d?: string,
+    p?: string,
+    q?: string,
+    dp?: string,
+    dq?: string,
+    qi?: string,
+    oth?: RSAPrime[],
+    crv?: string,
+    x?: string,
+    y?: string,
+    k?: string,
 }
 
 export class JWK {
@@ -50,7 +73,32 @@ export class JWK {
     x509Thumbprint?: string;
     x509S256Thumbprint?: string;
 
-    key_params: CryptoKeyParam;
+    // parameters used for generating cryptographic keys:
+
+    // RSAPublic
+    n?: string
+    e?: string
+
+    // RSAPrivate
+    d?: string   // ESPublic will just have a d
+    p?: string
+    q?: string
+    dp?: string
+    dq?: string
+    qi?: string
+    oth?: RSAPrime[]
+
+    // EC Private
+    crv?: string;
+    x?: string;
+    y?: string;
+
+    // EC Public
+    // * just has a "d" param (which is part of an RSAPrivate key already)
+
+    // Octet
+    k?: string;
+
 
     constructor(params: CommonKeyParameters) {
         this.kty = params.kty;
@@ -63,7 +111,31 @@ export class JWK {
         this.x509Thumbprint = params.x5t;
         this.x509S256Thumbprint = params.x5t_S256;
 
-        this.key_params = params.key_params;
+        this.n = params.n;
+        this.e = params.e;
+        this.d = params.d;
+        this.p = params.p;
+        this.q = params.q;
+        this.dp = params.dp;
+        this.dq = params.dq;
+        this.qi = params.qi;
+        this.crv = params.crv;
+        this.x = params.x;
+        this.y = params.y;
+        this.k = params.k;
+        this.oth = params.oth;
+    }
+
+    getKeyType() : CryptoKeyParam {
+        if(this.d && this.kty === 'RSA') return 'RSAPrivate';
+        if(this.n && this.e && this.kty === 'RSA') return 'RSAPublic';
+
+        if(this.crv && this.x && this.y && this.kty === 'EC') return 'ECPrivate';
+        if(this.d && this.kty === 'EC') return 'ECPublic';
+
+        if(this.k && this.kty === 'oct') return 'Octet';
+
+        throw new Error(`Missing required crypto key parameters for JWK of type: ${this.kty}`);
     }
 
     serialize() : string {
@@ -76,7 +148,20 @@ export class JWK {
             x509CertChain: this.x509CertChain,
             x509Thumbprint: this.x509Thumbprint,
             x509S256Thumbprint: this.x509S256Thumbprint,
-            ...this.key_params
+            // set crypto key params
+            n: this.n,
+            e: this.e,
+            d: this.d,
+            p: this.p,
+            q: this.q,
+            dp: this.dp,
+            dq: this.dq,
+            qi: this.qi,
+            crv: this.crv,
+            x: this.x,
+            y: this.y,
+            k: this.k,
+            oth: this.oth
         });
     }
 }
