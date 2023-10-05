@@ -6,15 +6,15 @@
 export type CryptoKeyParam = RSAPublic | RSAPrivate | ECPrivate | ECPublic | Octet;
 export const isRSAPublic = (key: CryptoKeyParam): key is RSAPublic => {
     return (key as RSAPublic).kind === "RSAPublic";
-}
+};
 
 export const isRSAPrivate = (key: CryptoKeyParam): key is RSAPrivate => {
     return (key as RSAPrivate).kind === "RSAPrivate";
-}
+};
 
 export const isOctet = (key: CryptoKeyParam): key is Octet => {
     return (key as Octet).kind === "Octet";
-}
+};
 
 export interface RSAPrivate {
     n: string,
@@ -25,7 +25,7 @@ export interface RSAPrivate {
     dp: string,
     dq: string,
     qi: string,
-    oth: Array<RSAPrime>,
+    oth: RSAPrime[],
     kind: string
 }
 

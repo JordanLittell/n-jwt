@@ -1,13 +1,11 @@
 import {EC_KEY_TYPE, JWK, OCT_KEY_TYPE, RSA_KEY_TYPE} from "./jwk";
-import {ECPrivate, ECPublic, Octet, RSAPrivate, RSAPublic} from "./crypto-key-params";
+import {ECPrivate, ECPublic, Octet, RSAPrivate} from "./crypto-key-params";
 import {JwkBuilder} from "./jwk-builder";
 
 /**
  * Parses JWK from a string
  */
 export class JWKParser {
-    constructor() {
-    }
 
     public parse(payload: string) : JWK {
         const jwkJSON = JSON.parse(payload);
@@ -63,22 +61,26 @@ export class JWKParser {
                 throw new TypeError(`Missing encryption key parameters for JWK of type ${kty}`);
 
             }
-            case OCT_KEY_TYPE:
+            case OCT_KEY_TYPE: {
                 const {k}: Octet = jwkJSON;
-                if(this.valuesPresent([k])) {
+
+                if (this.valuesPresent([k])) {
                     return builder
                         .withOctetParams({k, kind: 'Octet'})
                         .build();
                 }
 
                 throw new TypeError(`Missing encryption key parameters for JWK of type ${kty}`);
+            }
 
             default:
                 throw new TypeError("Unsupported Key type: " + kty);
         }
     }
 
-    private valuesPresent(values: Array<any>) : boolean {
-        return values.reduce((prev, curr) => prev && curr, true);
+
+    // eslint-disable  @typescript-eslint/no-explicit-any
+    private valuesPresent(values: string[]) : boolean {
+        return values.reduce((prev, curr) => (prev && !!curr), true);
     }
 }

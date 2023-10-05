@@ -6,17 +6,17 @@ import {JwsBuilder} from "../../lib/jws/jws-builder";
 import {JWK} from "../../lib/jwk/jwk";
 
 test("parsing works", () => {
-    const token = "eyJ0eXAiOiJKV1QiLA0KICJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJqb2UiLA0KICJleHAiOjEzMDA4MTkzODAsDQogImh0dHA6Ly9leGFtcGxlLmNvbS9pc19yb290Ijp0cnVlfQ.dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk"
+    const token = "eyJ0eXAiOiJKV1QiLA0KICJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJqb2UiLA0KICJleHAiOjEzMDA4MTkzODAsDQogImh0dHA6Ly9leGFtcGxlLmNvbS9pc19yb290Ijp0cnVlfQ.dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk";
     assert.doesNotThrow(() => JWS.parse(token));
-})
+});
 
 test("parsing and serializing do not modify the token", () => {
 
     const jwkStr = `{
         "kty":"oct",
         "k":"AyM1SysPpbyDfgZld3umj1qzKObwVMkoqQ-EstJQLr_T-1qS0gZH75aKtMN3Yj0iPS4hcgUuTwjAzZr1Z9CAow"
-     }`
-    const jwk: JWK = (new JWKParser()).parse(jwkStr)
+     }`;
+    const jwk: JWK = (new JWKParser()).parse(jwkStr);
 
     const builder = new JwsBuilder();
 
@@ -39,7 +39,7 @@ test("parsing and serializing do not modify the token", () => {
     const parsedJWS = JWS.parse(jws.serialize());
 
     assert.equal(parsedJWS.serialize(), jws.serialize());
-})
+});
 
 describe('hashing algorithms', () => {
 
@@ -73,17 +73,17 @@ describe('hashing algorithms', () => {
           "dp":"BwKfV3Akq5_MFZDFZCnW-wzl-CCo83WoZvnLQwCTeDv8uzluRSnm71I3QCLdhrqE2e9YkxvuxdBfpT_PI7Yz-FOKnu1R6HsJeDCjn12Sk3vmAktV2zb34MCdy7cpdTh_YVr7tss2u6vneTwrA86rZtu5Mbr1C1XsmvkxHQAdYo0",
           "dq":"h_96-mK1R_7glhsum81dZxjTnYynPbZpHziZjeeHcXYsXaaMwkOlODsWa7I9xXDoRwbKgB719rrmI2oKr6N3Do9U0ajaHF-NKJnwgjMd2w9cjz3_-kyNlxAr2v4IKhGNpmM5iIgOS1VZnOZ68m6_pbLBSp3nssTdlqvd0tIiTHU",
           "qi":"IYd7DHOhrWvxkwPQsRM2tOgrjbcrfvtQJipd-DlcxyVuuM9sQLdgjVk2oy26F0EmpScGLq2MowX7fhd_QJQ3ydy5cY7YIBi87w93IKLEdfnbJtoOPLUW0ITrJReOgo1cq9SbsxYawBgfp_gh6A5603k2-ZQwVK0JKSHuLFkuQ3U"
-         }`
+         }`;
         const jwk = new JWKParser().parse(jwkStr);
 
-        const builder = new JwsBuilder()
+        const builder = new JwsBuilder();
         const jws = builder
             .withHeaders({alg: "RS256"})
             .withProtectedHeaders({ alg: "RS256"})
             .withJWK(jwk)
             .withPayload({"iss":"joe",  "exp": 1300819380, "http://example.com/is_root": true})
-            .build()
+            .build();
 
         assert.doesNotThrow(() => jws.serialize());
     });
-})
+});

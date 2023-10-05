@@ -12,56 +12,56 @@ describe("validating tokens using HMAC signatures", () => {
         headers: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9",
         payload: "eyJpc3MiOiJqb2UiLCJleHAiOiIxMzAwODE5MzgwIn0",
         signature: "U3NjSl9zZFVUaEhlOFEwU2pUOEdPdEt2bGMteWxjejZ1V1BmWURyUGVFcUpvc2pmQVdldmwxWUg4dHh0S2FObkNBR1lub08zM2d4aHRqZFVZenRGbmc"
-    }
+    };
 
    test("validator returns true when signature is valid", () => {
        const jwkStr = `{
         "kty":"oct",
         "k":"AyM1SysPpbyDfgZld3umj1qzKObwVMkoqQ-EstJQLr_T-1qS0gZH75aKtMN3Yj0iPS4hcgUuTwjAzZr1Z9CAow"
-     }`
-       const jwk: JWK = (new JWKParser()).parse(jwkStr)
+     }`;
+       const jwk: JWK = (new JWKParser()).parse(jwkStr);
 
        const jws: JWS = JWS.parse(`${validToken.headers}.${validToken.payload}.${validToken.signature}`);
 
        const validator = new JwsValidator(jws, jwk);
        assert.equal(validator.validate(), true);
-   })
+   });
 
     test("validator returns false when signature is not valid", () => {
         const headers = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9";
-        const payload = "eyJpc3MiOiJqb2UiLCJleHAiOiIxMzAwODE5MzgwIn0"
+        const payload = "eyJpc3MiOiJqb2UiLCJleHAiOiIxMzAwODE5MzgwIn0";
         const sig = "INVALID!!!___U3NjSl9zZFVUaEhlOFEwU2pUOEdPdEt2bGMteWxjejZ1V";
 
         const jwkStr = `{
             "kty":"oct",
             "k":"AyM1SysPpbyDfgZld3umj1qzKObwVMkoqQ-EstJQLr_T-1qS0gZH75aKtMN3Yj0iPS4hcgUuTwjAzZr1Z9CAow"
-        }`
-        const jwk: JWK = (new JWKParser()).parse(jwkStr)
+        }`;
+        const jwk: JWK = (new JWKParser()).parse(jwkStr);
 
         const jws: JWS = JWS.parse(`${headers}.${payload}.${sig}`);
 
         const validator = new JwsValidator(jws, jwk);
         assert.equal(validator.validate(), false);
-    })
+    });
 
     test("validator returns false when key is invalid", () => {
         const jwkStr = `{
         "kty":"oct",
         "k":"invalid"
-     }`
-        const jwk: JWK = (new JWKParser()).parse(jwkStr)
+     }`;
+        const jwk: JWK = (new JWKParser()).parse(jwkStr);
 
         const jws: JWS = JWS.parse(`${validToken.headers}.${validToken.payload}.${validToken.signature}`);
 
         const validator = new JwsValidator(jws, jwk);
         assert.equal(validator.validate(), false);
-    })
+    });
 
     test("validator returns false when the token has been tampered", () => {
         const jwkStr = `{
             "kty":"oct",
             "k":"AyM1SysPpbyDfgZld3umj1qzKObwVMkoqQ-EstJQLr_T-1qS0gZH75aKtMN3Yj0iPS4hcgUuTwjAzZr1Z9CAow"
-        }`
+        }`;
         const jwk: JWK = (new JWKParser()).parse(jwkStr);
 
         const builder = new JwsBuilder();
@@ -90,5 +90,5 @@ describe("validating tokens using HMAC signatures", () => {
 
         const validator = new JwsValidator(tamperedJWS, jwk);
         assert.equal(validator.validate(), false);
-    })
+    });
 });

@@ -37,21 +37,21 @@ export enum Algorithm {
 export const getAlgorithm = (algorithm?: string) : Algorithm => {
     switch(algorithm) {
         case undefined: return Algorithm.none;
-        case "HS512": return Algorithm.HS512
-        case "HS384": return Algorithm.HS384
-        case "HS256": return Algorithm.HS256
+        case "HS512": return Algorithm.HS512;
+        case "HS384": return Algorithm.HS384;
+        case "HS256": return Algorithm.HS256;
 
-        case "RS512": return Algorithm.RS512
-        case "RS384": return Algorithm.RS384
-        case "RS256": return Algorithm.RS256
+        case "RS512": return Algorithm.RS512;
+        case "RS384": return Algorithm.RS384;
+        case "RS256": return Algorithm.RS256;
 
-        case "ES512": return Algorithm.ES512
-        case "ES384": return Algorithm.ES384
-        case "ES256": return Algorithm.ES256
+        case "ES512": return Algorithm.ES512;
+        case "ES384": return Algorithm.ES384;
+        case "ES256": return Algorithm.ES256;
 
-        case "PS512": return Algorithm.PS512
-        case "PS384": return Algorithm.PS384
-        case "PS256": return Algorithm.PS256
-        default: throw new Error(`unrecognized alg: ${algorithm}`)
+        case "PS512": return Algorithm.PS512;
+        case "PS384": return Algorithm.PS384;
+        case "PS256": return Algorithm.PS256;
+        default: throw new Error(`unrecognized alg: ${algorithm}`);
     }
-}
+};

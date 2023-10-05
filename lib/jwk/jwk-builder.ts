@@ -7,14 +7,14 @@ export class JwkBuilder {
     private _keyParamsSet: boolean;
     private _kty?: KeyType;
     private _use?: Usage;
-    private _key_ops?: Array<KeyOperation>;
+    private _key_ops?: KeyOperation[];
     private _alg?: Algorithm;
     private _kid?: string;
     private _x5u?: string;
     private _x5c?: string;
     private _x5t?: string;
     private _x5t_S256?: string;
-    private _key_params?: CryptoKeyParam
+    private _key_params?: CryptoKeyParam;
 
     constructor() {
         this._keyParamsSet = false;
@@ -58,7 +58,7 @@ export class JwkBuilder {
         return this;
     }
 
-    withKeyOps(value?: Array<KeyOperation>): JwkBuilder {
+    withKeyOps(value?: KeyOperation[]): JwkBuilder {
         this._key_ops = value;
         return this;
     }

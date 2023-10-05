@@ -1,2 +1,1 @@
-import 'lib/*'
-import {Algorithm} from "./lib/jwa";
+import 'lib/*';

@@ -30,7 +30,7 @@ export class RSASigner implements Signer {
             return signer.sign({key: key, padding: constants.RSA_PKCS1_PADDING}, "base64url");
         }
 
-        throw new Error("Expected JWK to have RSA Private Key parameters")
+        throw new Error("Expected JWK to have RSA Private Key parameters");
     }
 
     private isRSAAlgorithm(algorithm: Algorithm) : boolean {

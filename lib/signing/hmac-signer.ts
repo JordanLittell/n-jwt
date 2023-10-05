@@ -33,9 +33,9 @@ export class HMACSigner implements Signer {
 
         if(isOctet(keyParams)) {
             const {k} = keyParams;
-            const hmac = crypto.createHmac(NodeAlgorithmMappings[this.algorithm], k)
-            hmac.write(message)
-            return hmac.digest('base64url')
+            const hmac = crypto.createHmac(NodeAlgorithmMappings[this.algorithm], k);
+            hmac.write(message);
+            return hmac.digest('base64url');
         }
 
         throw new Error("Expected to find JWK key parameter 'k'");

@@ -4,29 +4,29 @@ import {test, describe} from 'node:test';
 import * as assert from "assert";
 import {EC_KEY_TYPE, OCT_KEY_TYPE, RSA_KEY_TYPE} from "../../lib/jwk/jwk";
 
-const parser = new JWKParser()
+const parser = new JWKParser();
 
 describe("Parsing JWK JSON payloads", () => {
 
-    test('it parses private Elliptic Curve encryption keys', (t) => {
+    test('it parses private Elliptic Curve encryption keys', () => {
         const key = `{
             "kty":"EC",
             "crv":"P-256",
             "x":"f83OJ3D2xF1Bg8vub9tLe1gHMzV76e8Tus9uPHvRVEU",
             "y":"x_FEzRu9m36HLN_tue659LNpXW6pCyStikYjKIWI5a0",
             "d":"jpsQnnGQmL-YBIffH1136cspYG6-0iY7X1fCE9-E9LI"
-        }`
+        }`;
 
         const jwk = parser.parse(key);
 
         assert.equal(jwk.kty, EC_KEY_TYPE);
     });
 
-    test('it parses public Elliptic Curve encryption keys', (t) => {
+    test('it parses public Elliptic Curve encryption keys', () => {
         const key = `{
             "kty":"EC",
             "d":"f83OJ3D2xF1Bg8vub9tLe1gHMzV76e8Tus9uPHvRVEU"
-        }`
+        }`;
 
         const jwk = parser.parse(key);
 
@@ -79,29 +79,29 @@ describe("Parsing JWK JSON payloads", () => {
     });
 
     describe('error handling', () => {
-        test('it throws an error on an unsupported key type', (t) => {
+        test('it throws an error on an unsupported key type', () => {
             const key = `{
             "kty":"WAT??",
             "crv":"P-256",
             "x":"f83OJ3D2xF1Bg8vub9tLe1gHMzV76e8Tus9uPHvRVEU",
             "y":"x_FEzRu9m36HLN_tue659LNpXW6pCyStikYjKIWI5a0",
             "d":"jpsQnnGQmL-YBIffH1136cspYG6-0iY7X1fCE9-E9LI"
-        }`
+        }`;
 
             assert.throws(() => parser.parse(key));
         });
 
-        test('it throws an error on unsupported key params', (t) => {
+        test('it throws an error on unsupported key params', () => {
             const key = `{
             "kty":"WAT??",
             "crv":"P-256",
             "a":"f83OJ3D2xF1Bg8vub9tLe1gHMzV76e8Tus9uPHvRVEU",
             "b":"x_FEzRu9m36HLN_tue659LNpXW6pCyStikYjKIWI5a0",
             "c":"jpsQnnGQmL-YBIffH1136cspYG6-0iY7X1fCE9-E9LI"
-        }`
+        }`;
 
             assert.throws(() => parser.parse(key));
         });
     });
-})
+});
 

@@ -1,4 +1,3 @@
-import * as crypto from "crypto";
 import {getAlgorithm} from "../jwa";
 import {base64URLEncode} from "../encoding";
 import {SignerFactory} from "../signing/signer-factory";
@@ -8,7 +7,7 @@ import {JWK} from "../jwk/jwk";
 export class JwsValidator {
 
     private jws: JWS;
-    private jwk: JWK;
+    private readonly jwk: JWK;
 
     constructor(jws: JWS, jwk: JWK) {
         this.jws = jws;

@@ -22,4 +22,4 @@ export const NodeAlgorithmMappings = {
     PS384: 'PS384',
     PS512: 'PS512',
     none: 'none'
-}
+};

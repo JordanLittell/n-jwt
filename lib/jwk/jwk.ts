@@ -2,17 +2,15 @@
  * A JSON Web Key (JWK) is a JavaScript Object Notation (JSON) data structure that represents a cryptographic key
  * RFC: https://datatracker.ietf.org/doc/html/rfc7517
  */
-
-import * as https from "https";
 import {Algorithm} from "../jwa";
 import {CryptoKeyParam} from "./crypto-key-params";
 
-export const EC_KEY_TYPE = 'EC'
-export const RSA_KEY_TYPE = 'RSA'
-export const OCT_KEY_TYPE = 'oct'
+export const EC_KEY_TYPE = 'EC';
+export const RSA_KEY_TYPE = 'RSA';
+export const OCT_KEY_TYPE = 'oct';
 
-export type KeyType = 'EC' | 'RSA' | 'oct'
-export type Usage = 'sig' | 'enc' // sign or encrypt?
+export type KeyType = 'EC' | 'RSA' | 'oct';
+export type Usage = 'sig' | 'enc'; // sign or encrypt?
 
 /**
  * Identifies what key is to be used for:
@@ -30,7 +28,7 @@ export type KeyOperation = 'sign' | 'verify' | 'encrypt' | 'decrypt' | 'wrapKey'
 interface CommonKeyParameters {
     kty: KeyType,
     use?: Usage,
-    key_ops?: Array<KeyOperation>,
+    key_ops?: KeyOperation[],
     alg?: Algorithm,
     kid?: string,
     x5u?: string,
@@ -42,7 +40,7 @@ interface CommonKeyParameters {
 
 export class JWK {
     use?: Usage; // should correspond with usage of cert if specified
-    key_ops?: Array<KeyOperation>
+    key_ops?: KeyOperation[];
     kid?: string;
     kty: KeyType;
 
@@ -79,6 +77,6 @@ export class JWK {
             x509Thumbprint: this.x509Thumbprint,
             x509S256Thumbprint: this.x509S256Thumbprint,
             ...this.key_params
-        })
+        });
     }
 }
