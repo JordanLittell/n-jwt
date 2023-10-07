@@ -34,19 +34,60 @@ describe("JWK Generation", () => {
         assert.doesNotThrow(() => generator.generate());
     });
 
-    test("RSA keys are supported", () => {
+    test("RSA256 keys are supported", () => {
         const generator = new JWKGenerator({
             alg: Algorithm.RS256,
-            kid: 'secret'
+            kid: 'secret',
+            key_ops: ['sign']
         });
 
         assert.doesNotThrow(() => generator.generate());
     });
 
+    test("RSA384 keys are supported", () => {
+        const generator = new JWKGenerator({
+            alg: Algorithm.RS384,
+            kid: 'secret',
+            key_ops: ['sign']
+        });
+
+        assert.doesNotThrow(() => generator.generate());
+    });
+
+    test("RSA512 keys are supported", () => {
+        const generator = new JWKGenerator({
+            alg: Algorithm.RS512,
+            kid: 'secret',
+            key_ops: ['sign', 'verify']
+        });
+
+        assert.doesNotThrow(() => generator.generate());
+    });
+
+    test("Keys for verification will not have private params", () => {
+        const generator = new JWKGenerator({
+            alg: Algorithm.RS512,
+            kid: 'secret',
+            key_ops: ['verify']
+        });
+
+        const key = generator.generate();
+
+        const {d, p, q, dp, dq, qi} = key;
+
+        assert.equal(d, null);
+        assert.equal(p, null);
+        assert.equal(q, null);
+        assert.equal(dp, null);
+        assert.equal(dq, null);
+        assert.equal(qi, null);
+    });
+
     test("JWS octet objects signed with JWKs vended from the generator can be verified", () => {
         const generator = new JWKGenerator({
             alg: Algorithm.HS256,
-            kid: 'secret'
+            kid: 'secret',
+            key_ops: ['sign', 'verify']
         });
 
         const jwk = generator.generate();

@@ -13,6 +13,12 @@ export interface JWKSpec {
     kid: string
 }
 
+const rsaModulusMapping = {
+    [Algorithm.RS256]: 2048,
+    [Algorithm.RS512]: 4096,
+    [Algorithm.RS384]: 3072
+}
+
 export default class JWKGenerator {
     alg: Algorithm;
     use?: Usage;
@@ -46,18 +52,26 @@ export default class JWKGenerator {
             case Algorithm.RS256:
             case Algorithm.RS384:
             case Algorithm.RS512: {
-                const {publicKey, privateKey} = crypto.generateKeyPairSync('rsa', {
-                    modulusLength: 2048,
+
+                if(!this.key_ops)
+                    throw new Error("With RSA keys, you must indicate the use in key_ops: 'sign', 'verify', or both");
+
+                let publicJWK = {}, privateJWK = {};
+
+                const { privateKey} = crypto.generateKeyPairSync('rsa', {
+                    modulusLength: rsaModulusMapping[this.alg],
                     publicExponent: 0x10001, // 65537
                 });
 
                 if(this.key_ops?.find((entry) => entry === 'verify')) {
-                    const publicJWK = crypto.createPublicKey(publicKey).export({ format: 'jwk' });
-                    return new JWKParser().parse(JSON.stringify(publicJWK));
+                    publicJWK = crypto.createPublicKey(privateKey).export({ format: 'jwk' });
+                }
+                if(this.key_ops?.find((entry) => entry === 'sign')) {
+                    privateJWK = privateKey.export({format: 'jwk'});
                 }
 
-                const privateJWK = privateKey.export({format: 'jwk'});
-                return new JWKParser().parse(JSON.stringify(privateJWK));
+
+                return new JWKParser().parse(JSON.stringify({...privateJWK, ...publicJWK}));
             }
             default:
                 throw new Error(`Unsupported Algorithm ${this.alg}!`);
