@@ -1,9 +1,9 @@
 import {describe, test} from "node:test";
-import JWKGenerator from "../../lib/jwk/jwk-generator";
 import {Algorithm} from "../../lib/jwa";
 import * as assert from "assert";
 import {JwsBuilder} from "../../lib/jws/jws-builder";
 import {JwsValidator} from "../../lib/validation/jws-validator";
+import JWKGenerator from "../../lib/jwk/generator/jwk-generator";
 
 describe("JWK Generation", () => {
 
