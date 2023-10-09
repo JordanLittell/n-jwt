@@ -110,4 +110,34 @@ describe("JWK Generation", () => {
 
         assert.equal(validationResult, true);
     });
+
+    test("It generates EC256 keys", () => {
+        const generator = new JWKGenerator({
+            alg: Algorithm.ES256,
+            kid: 'secret',
+            key_ops: ['sign', 'verify']
+        });
+
+        assert.doesNotThrow(() => generator.generate());
+    });
+
+    test("It generates EC384 keys", () => {
+        const generator = new JWKGenerator({
+            alg: Algorithm.ES384,
+            kid: 'secret',
+            key_ops: ['sign', 'verify']
+        });
+
+        assert.doesNotThrow(() => generator.generate());
+    });
+
+    test("It generates EC512 keys", () => {
+        const generator = new JWKGenerator({
+            alg: Algorithm.ES512,
+            kid: 'secret',
+            key_ops: ['sign', 'verify']
+        });
+
+        assert.doesNotThrow(() => generator.generate());
+    });
 });

@@ -109,7 +109,6 @@ export class JwkBuilder {
     }
 
     withRSAPrivateParams(params: RSAPrivate) : JwkBuilder{
-        this.validate();
         this.d = params.d;
         this.dp = params.dp;
         this.dq = params.dq;
@@ -123,20 +122,17 @@ export class JwkBuilder {
     }
 
     withRSAPublicParams(params: RSAPublic): JwkBuilder {
-        this.validate();
         this.e = params.e;
         this.n = params.n;
         return this;
     }
 
     withECPublicParams(params: ECPublic): JwkBuilder {
-        this.validate();
         this.d = params.d;
         return this;
     }
 
     withECPrivateParams(params: ECPrivate): JwkBuilder {
-        this.validate();
         this.crv = params.crv;
         this.x = params.x;
         this.y = params.y;
@@ -144,7 +140,6 @@ export class JwkBuilder {
     }
 
     withOctetParams(params: Octet): JwkBuilder {
-        this.validate();
         this.k = params.k;
         return this;
     }

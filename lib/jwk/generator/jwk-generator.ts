@@ -3,6 +3,7 @@ import {Algorithm} from "../../jwa";
 import {JwkBuilder} from "../jwk-builder";
 import RSAGenerator from "./rsa-generator";
 import SHAGenerator from "./sha-generator";
+import ECGenerator from "./ec-generator";
 
 export interface JWKSpec {
     alg: Algorithm,
@@ -44,6 +45,11 @@ export default class JWKGenerator {
             case Algorithm.RS384:
             case Algorithm.RS512: {
                 return new RSAGenerator(this.alg, this.key_ops).generate();
+            }
+            case Algorithm.ES256:
+            case Algorithm.ES384:
+            case Algorithm.ES512: {
+                return new ECGenerator(this.alg, this.key_ops).generate();
             }
             default:
                 throw new Error(`Unsupported Algorithm ${this.alg}!`);

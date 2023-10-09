@@ -28,18 +28,20 @@ export class JWKParser {
                 const {crv, x, y}: ECPrivate = jwkJSON;
 
                 if(this.valuesPresent([crv, x, y])) {
-                    return builder
+                    builder
                         .withECPrivateParams({crv, x, y})
-                        .build();
                 }
 
                 const {d}: ECPublic = jwkJSON;
 
                 if(this.valuesPresent([d])) {
-                    return builder
+                    builder
                         .withECPublicParams({d})
-                        .build();
                 }
+                const jwk = builder.build();
+
+                if(jwk.d || jwk.crv) return jwk;
+
                 throw new TypeError(`Missing encryption key parameters for JWK of type ${kty}`);
             }
 
