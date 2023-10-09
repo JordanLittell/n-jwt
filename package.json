@@ -4,7 +4,7 @@
   "description": "A package for creating JWTs",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --require ts-node/register --recursive 'test/**/*.ts'",
+    "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha --require ts-node/register --recursive 'test/**/*.ts'",
     "fix": "npx eslint --fix .",
     "lint": "npx eslint ."
   },

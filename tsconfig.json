@@ -3,7 +3,9 @@
     "noImplicitAny": true,
     "strictNullChecks": true
   },
-  "include": ["lib/**/*",
+  "moduleResolution": "node",
+  "include": [
+    "lib/**/*",
     "test/**/*"
   ]
 }
