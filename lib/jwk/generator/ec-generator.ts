@@ -23,11 +23,11 @@ export default class ECGenerator {
         });
 
         if(this.keyOps?.find((entry) => entry === 'sign')) {
-            let privateJWK = privateKey.export({format: 'jwk'});
+            const privateJWK = privateKey.export({format: 'jwk'});
 
             return new JWKParser().parse(JSON.stringify({...privateJWK, kty: 'EC'}));
         }
-        let publicJWK = crypto.createPublicKey(privateKey).export({ format: 'jwk' });
+        const publicJWK = crypto.createPublicKey(privateKey).export({ format: 'jwk' });
         return new JWKParser().parse(JSON.stringify({...publicJWK, kty: 'EC'}));
     }
 

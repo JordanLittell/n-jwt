@@ -29,14 +29,14 @@ export class JWKParser {
 
                 if(this.valuesPresent([crv, x, y])) {
                     builder
-                        .withECPrivateParams({crv, x, y})
+                        .withECPrivateParams({crv, x, y});
                 }
 
                 const {d}: ECPublic = jwkJSON;
 
                 if(this.valuesPresent([d])) {
                     builder
-                        .withECPublicParams({d})
+                        .withECPublicParams({d});
                 }
                 const jwk = builder.build();
 
