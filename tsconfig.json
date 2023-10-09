@@ -1,11 +1,33 @@
 {
   "compilerOptions": {
+    "baseUrl": "./",
     "noImplicitAny": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "sourceMap": true,
+    "inlineSourceMap": false,
+    "inlineSources": true,
+    "declaration": false,
+    "noEmit": false,
+    "outDir": "build",
+    "target": "es6",
+    "module": "commonjs",
+    "paths": {
+      "@lib/*": ["lib/*"]
+    },
+    "types": ["mocha", "node"]
   },
   "moduleResolution": "node",
   "include": [
     "lib/**/*",
-    "test/**/*"
-  ]
+    "lib/signing/signer.ts"
+  ],
+  "exclude": [
+    "test/**/*",
+  ],
+  "ts-node": {
+    "require": ["tsconfig-paths/register.js"],
+    "cwd": "./n-jwt/lib",
+    "projectSearchDir": "./n-jwt/lib",
+    "project": "./n-jwt/tsconfig.json"
+  }
 }

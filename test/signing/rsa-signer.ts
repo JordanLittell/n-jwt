@@ -1,12 +1,11 @@
-import {describe, test} from "node:test";
-import {JWKParser} from "../../lib/jwk/jwk-parser";
-import {JwsBuilder} from "../../lib/jws/jws-builder";
-import {SignerFactory} from "../../lib/signing/signer-factory";
-import {Algorithm} from "../../lib/jwa";
+import {JWKParser} from "@lib/jwk/jwk-parser";
+import {JwsBuilder} from "@lib/jws/jws-builder";
+import {SignerFactory} from "@lib/signing/signer-factory";
+import {Algorithm} from "@lib/jwa";
 import * as assert from "assert";
 
 describe("RSA signing", () => {
-    test("it signs without generating exceptions", () => {
+    it("it signs without generating exceptions", () => {
         const jwkStr = `{"kty":"RSA",
           "n":"ofgWCuLjybRlzo0tZWJjNiuSfb4p4fAkd_wWJcyQoTbji9k0l8W26mPddxHmfHQp-Vaw-4qPCJrcS2mJPMEzP1Pt0Bm4d4QlL-yRT-SFd2lZS-pCgNMsD1W_YpRPEwOWvG6b32690r2jZ47soMZo9wGzjb_7OMg0LOL-bSf63kpaSHSXndS5z5rexMdbBYUsLA9e-KXBdQOS-UTo7WTBEMa2R2CapHg665xsmtdVMTBQY4uDZlxvb3qCo5ZwKh9kG4LT6_I5IhlJH7aGhyxXFvUK-DWNmoudF8NAco9_h9iaGNj8q2ethFkMLs91kzk2PAcDTW9gb54h4FRWyuXpoQ",
           "e":"AQAB",
@@ -36,7 +35,7 @@ describe("RSA signing", () => {
         assert.doesNotThrow(() => signer.sign(`${headers}.${payload}`, jwk));
     });
 
-    test("signature is valid", () => {
+    it("signature is valid", () => {
         const jwkStr = `{"kty":"RSA",
           "n":"ofgWCuLjybRlzo0tZWJjNiuSfb4p4fAkd_wWJcyQoTbji9k0l8W26mPddxHmfHQp-Vaw-4qPCJrcS2mJPMEzP1Pt0Bm4d4QlL-yRT-SFd2lZS-pCgNMsD1W_YpRPEwOWvG6b32690r2jZ47soMZo9wGzjb_7OMg0LOL-bSf63kpaSHSXndS5z5rexMdbBYUsLA9e-KXBdQOS-UTo7WTBEMa2R2CapHg665xsmtdVMTBQY4uDZlxvb3qCo5ZwKh9kG4LT6_I5IhlJH7aGhyxXFvUK-DWNmoudF8NAco9_h9iaGNj8q2ethFkMLs91kzk2PAcDTW9gb54h4FRWyuXpoQ",
           "e":"AQAB",

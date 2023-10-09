@@ -1,14 +1,12 @@
-
-import {JWKParser} from "../../lib/jwk/jwk-parser";
-import {test, describe} from 'node:test';
+import {JWKParser} from "@lib/jwk/jwk-parser";
+import {EC_KEY_TYPE, OCT_KEY_TYPE, RSA_KEY_TYPE} from "@lib/jwk/jwk";
 import * as assert from "assert";
-import {EC_KEY_TYPE, OCT_KEY_TYPE, RSA_KEY_TYPE} from "../../lib/jwk/jwk";
 
 const parser = new JWKParser();
 
 describe("Parsing JWK JSON payloads", () => {
 
-    test('it parses private Elliptic Curve encryption keys', () => {
+    it('it parses private Elliptic Curve encryption keys', () => {
         const key = `{
             "kty":"EC",
             "crv":"P-256",
@@ -22,7 +20,7 @@ describe("Parsing JWK JSON payloads", () => {
         assert.equal(jwk.kty, EC_KEY_TYPE);
     });
 
-    test('it parses public Elliptic Curve encryption keys', () => {
+    it('it parses public Elliptic Curve encryption keys', () => {
         const key = `{
             "kty":"EC",
             "d":"f83OJ3D2xF1Bg8vub9tLe1gHMzV76e8Tus9uPHvRVEU"
@@ -33,7 +31,7 @@ describe("Parsing JWK JSON payloads", () => {
         assert.equal(jwk.kty, EC_KEY_TYPE);
     });
 
-    test('it parses RSA public encryption keys', () => {
+    it('it parses RSA public encryption keys', () => {
         const key = `{
             "kty":"RSA",
             "n": "0vx7agoebGcQSuuPiLJXZptN9nndrQmbXEps2aiAFbWhM78LhWx4cbbfAAtVT86zwu1RK7aPFFxuhDR1L6tSoc_BJECPebWKRXjBZCiFV4n3oknjhMstn64tZ_2W-5JsGY4Hc5n9yBXArwl93lqt7_RN5w6Cf0h4QyQ5v-65YGjQR0_FDW2QvzqY368QQMicAtaSqzs8KJZgnYb9c7d0zgdAZHzu6qMQvRL5hajrn1n91CbOpbISD08qNLyrdkt-bFTWhAI4vMQFh6WeZu0fM4lFd2NcRwr3XPksINHaQ-G_xBniIqbw0Ls1jF44-csFCur-kEgU8awapJzKnqDKgw",
@@ -47,7 +45,7 @@ describe("Parsing JWK JSON payloads", () => {
         assert.equal(jwk.kty, RSA_KEY_TYPE);
     });
 
-    test('it parses RSA private encryption keys', () => {
+    it('it parses RSA private encryption keys', () => {
         const key = `{"kty":"RSA",
           "n":"0vx7agoebGcQSuuPiLJXZptN9nndrQmbXEps2aiAFbWhM78LhWx4cbbfAAtVT86zwu1RK7aPFFxuhDR1L6tSoc_BJECPebWKRXjBZCiFV4n3oknjhMstn64tZ_2W-5JsGY4Hc5n9yBXArwl93lqt7_RN5w6Cf0h4QyQ5v-65YGjQR0_FDW2QvzqY368QQMicAtaSqzs8KJZgnYb9c7d0zgdAZHzu6qMQvRL5hajrn1n91CbOpbISD08qNLyrdkt-bFTWhAI4vMQFh6WeZu0fM4lFd2NcRwr3XPksINHaQ-G_xBniIqbw0Ls1jF44-csFCur-kEgU8awapJzKnqDKgw",
           "e":"AQAB",
@@ -65,7 +63,7 @@ describe("Parsing JWK JSON payloads", () => {
         assert.equal(jwk.kty, RSA_KEY_TYPE);
     });
 
-    test('it parses Octet encryption keys', () => {
+    it('it parses Octet encryption keys', () => {
         const key = `{
             "kty":"oct",
             "k": "0vx7agoebGcQSuuPiLJXZptN9nndrQmbXEps2aiAFbWhM78LhWx4cbbfAAtVT86zwu1RK7aPFFxuhDR1L6tSoc_BJECPebWKRXjBZCiFV4n3oknjhMstn64tZ_2W-5JsGY4Hc5n9yBXArwl93lqt7_RN5w6Cf0h4QyQ5v-65YGjQR0_FDW2QvzqY368QQMicAtaSqzs8KJZgnYb9c7d0zgdAZHzu6qMQvRL5hajrn1n91CbOpbISD08qNLyrdkt-bFTWhAI4vMQFh6WeZu0fM4lFd2NcRwr3XPksINHaQ-G_xBniIqbw0Ls1jF44-csFCur-kEgU8awapJzKnqDKgw",
@@ -79,7 +77,7 @@ describe("Parsing JWK JSON payloads", () => {
     });
 
     describe('error handling', () => {
-        test('it throws an error on an unsupported key type', () => {
+        it('it throws an error on an unsupported key type', () => {
             const key = `{
             "kty":"WAT??",
             "crv":"P-256",
@@ -91,7 +89,7 @@ describe("Parsing JWK JSON payloads", () => {
             assert.throws(() => parser.parse(key));
         });
 
-        test('it throws an error on unsupported key params', () => {
+        it('it throws an error on unsupported key params', () => {
             const key = `{
             "kty":"WAT??",
             "crv":"P-256",

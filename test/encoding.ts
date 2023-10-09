@@ -1,8 +1,7 @@
-import {test} from "node:test";
-import {base64URLDecode, base64URLEncode} from "../lib/encoding";
+import {base64URLDecode, base64URLEncode} from "@lib/encoding";
 import * as assert from "assert";
 
-test("base64url encoding is consistent with RFC", () => {
+it("base64url encoding is consistent with RFC", () => {
     const payload : string = '{"iss":"joe",\r\n' +
         ' "exp":1300819380,\r\n' +
         ' "http://example.com/is_root":true}';
@@ -12,7 +11,7 @@ test("base64url encoding is consistent with RFC", () => {
     assert.equal(encodedPayload, "eyJpc3MiOiJqb2UiLA0KICJleHAiOjEzMDA4MTkzODAsDQogImh0dHA6Ly9leGFtcGxlLmNvbS9pc19yb290Ijp0cnVlfQ");
 });
 
-test("encoding and decoding are inverse", () => {
+it("encoding and decoding are inverse", () => {
     const payload : string = '{"iss":"joe",\r\n' +
         ' "exp":1300819380,\r\n' +
         ' "http://example.com/is_root":true}';

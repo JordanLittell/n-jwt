@@ -1,4 +1,4 @@
-import {JWK} from "../jwk/jwk";
+import {JWK} from "@lib/jwk/jwk";
 
 /**
  * Uses a JWK to sign a payload

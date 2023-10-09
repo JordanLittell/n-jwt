@@ -1,10 +1,10 @@
-import {Algorithm, getAlgorithm} from "../jwa";
-import {base64URLEncode} from "../encoding";
-import {SignerFactory} from "../signing/signer-factory";
-import {JWS} from "../jws/jws";
-import {JWK} from "../jwk/jwk";
+import {Algorithm, getAlgorithm} from "@lib/jwa";
+import {base64URLEncode} from "@lib/encoding";
+import {SignerFactory} from "@lib/signing/signer-factory";
+import {JWS} from "@lib/jws/jws";
+import {JWK} from "@lib/jwk/jwk";
 import * as crypto from "crypto";
-import {NodeAlgorithmMappings} from "../node-algorithm-mappings";
+import {NodeAlgorithmMappings} from "@lib/node-algorithm-mappings";
 import {constants} from "crypto";
 
 export class JwsValidator {

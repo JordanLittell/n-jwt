@@ -1,9 +1,9 @@
 import {JWK, KeyOperation, Usage} from "../jwk";
-import {Algorithm} from "../../jwa";
-import {JwkBuilder} from "../jwk-builder";
-import RSAGenerator from "./rsa-generator";
-import SHAGenerator from "./sha-generator";
-import ECGenerator from "./ec-generator";
+import {Algorithm} from "@lib/jwa";
+import {JwkBuilder} from "@lib/jwk/jwk-builder";
+import RSAGenerator from "@lib/jwk/generator/rsa-generator";
+import SHAGenerator from "@lib/jwk/generator/sha-generator";
+import ECGenerator from "@lib/jwk/generator/ec-generator";
 
 export interface JWKSpec {
     alg: Algorithm,

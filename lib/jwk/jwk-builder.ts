@@ -1,6 +1,6 @@
-import {ECPrivate, ECPublic, Octet, RSAPrime, RSAPrivate, RSAPublic} from "./crypto-key-params";
-import {Algorithm} from "../jwa";
-import {JWK, KeyOperation, KeyType, Usage} from "./jwk";
+import {ECPrivate, ECPublic, Octet, RSAPrime, RSAPrivate, RSAPublic} from "@lib/jwk/crypto-key-params";
+import {Algorithm} from "@lib/jwa";
+import {JWK, KeyOperation, KeyType, Usage} from "@lib/jwk/jwk";
 
 export class JwkBuilder {
 

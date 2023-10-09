@@ -1,7 +1,7 @@
-import {JWK, KeyOperation} from "../jwk";
-import {JWKParser} from "../jwk-parser";
+import {JWK, KeyOperation} from "@lib/jwk/jwk";
+import {JWKParser} from "@lib/jwk/jwk-parser";
 import * as crypto from "crypto";
-import {Algorithm} from "../../jwa";
+import {Algorithm} from "@lib/jwa";
 import {RSAPSSKeyPairKeyObjectOptions} from "crypto";
 
 export default class PSAGenerator {
