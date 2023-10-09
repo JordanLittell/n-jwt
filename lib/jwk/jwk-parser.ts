@@ -1,6 +1,6 @@
-import {EC_KEY_TYPE, JWK, OCT_KEY_TYPE, RSA_KEY_TYPE} from "./jwk";
-import {ECPrivate, ECPublic, Octet, RSAPrivate} from "./crypto-key-params";
-import {JwkBuilder} from "./jwk-builder";
+import {EC_KEY_TYPE, JWK, OCT_KEY_TYPE, RSA_KEY_TYPE} from "@lib/jwk/jwk";
+import {ECPrivate, ECPublic, Octet, RSAPrivate} from "@lib/jwk/crypto-key-params";
+import {JwkBuilder} from "@lib/jwk/jwk-builder";
 
 /**
  * Parses JWK from a string

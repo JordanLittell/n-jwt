@@ -1,8 +1,8 @@
 import * as crypto from "crypto";
-import {Signer} from "./signer";
-import {JWK} from "../jwk/jwk";
-import {NodeAlgorithmMappings} from "../node-algorithm-mappings";
-import {Algorithm} from "../jwa";
+import {Signer} from "@lib/signing/signer";
+import {JWK} from "@lib/jwk/jwk";
+import {NodeAlgorithmMappings} from "@lib/node-algorithm-mappings";
+import {Algorithm} from "@lib/jwa";
 
 /**
  * Signing algorithm is derived from JOSE headers. The JWK is used to get the parameters for the signing algorithm.

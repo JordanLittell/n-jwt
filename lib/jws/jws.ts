@@ -5,8 +5,8 @@
  *
  * JWS can either be produced or consumed
  */
-import {Header} from "../jose-headers";
-import {base64URLDecode, base64URLEncode} from "../encoding";
+import {Header} from "@lib/jose-headers";
+import {base64URLDecode, base64URLEncode} from "@lib/encoding";
 
 export class JWS {
     // Note that the payload can be any content and need not be a representation of a JSON object.

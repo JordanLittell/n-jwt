@@ -1,8 +1,8 @@
 
-import {JWKParser} from "../../lib/jwk/jwk-parser";
+import {JWKParser} from "@lib/jwk/jwk-parser";
 import {test, describe} from 'node:test';
 import * as assert from "assert";
-import {EC_KEY_TYPE, OCT_KEY_TYPE, RSA_KEY_TYPE} from "../../lib/jwk/jwk";
+import {EC_KEY_TYPE, OCT_KEY_TYPE, RSA_KEY_TYPE} from "@lib/jwk/jwk";
 
 const parser = new JWKParser();
 

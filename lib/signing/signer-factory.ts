@@ -1,7 +1,7 @@
-import {Algorithm} from "../jwa";
-import {HMACSigner} from "./hmac-signer";
-import {Signer} from "./signer";
-import {RSASigner} from "./rsa-signer";
+import {Algorithm} from "@lib/jwa";
+import {HMACSigner} from "@lib/signing/hmac-signer";
+import {Signer} from "@lib/signing/signer";
+import {RSASigner} from "@lib/signing/rsa-signer";
 
 /**
  * Abstract factory that constructs implementations of Signer

@@ -1,5 +1,5 @@
 import {test} from "node:test";
-import {base64URLDecode, base64URLEncode} from "../lib/encoding";
+import {base64URLDecode, base64URLEncode} from "@lib/encoding";
 import * as assert from "assert";
 
 test("base64url encoding is consistent with RFC", () => {

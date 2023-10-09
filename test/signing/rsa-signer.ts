@@ -1,8 +1,8 @@
 import {describe, test} from "node:test";
-import {JWKParser} from "../../lib/jwk/jwk-parser";
-import {JwsBuilder} from "../../lib/jws/jws-builder";
-import {SignerFactory} from "../../lib/signing/signer-factory";
-import {Algorithm} from "../../lib/jwa";
+import {JWKParser} from "@lib/jwk/jwk-parser";
+import {JwsBuilder} from "@lib/jws/jws-builder";
+import {SignerFactory} from "@lib/signing/signer-factory";
+import {Algorithm} from "@lib/jwa";
 import * as assert from "assert";
 
 describe("RSA signing", () => {

@@ -1,10 +1,10 @@
-import {JWK} from "../jwk/jwk";
-import {Header} from "../jose-headers";
-import {JWS} from "./jws";
-import {base64URLEncode} from "../encoding";
-import {Algorithm} from "../jwa";
-import {SignerFactory} from "../signing/signer-factory";
-import {Signer} from "../signing/signer";
+import {JWK} from "@lib/jwk/jwk";
+import {Header} from "@lib/jose-headers";
+import {JWS} from "@lib/jws/jws";
+import {base64URLEncode} from "@lib/encoding";
+import {Algorithm} from "@lib/jwa";
+import {SignerFactory} from "@lib/signing/signer-factory";
+import {Signer} from "@lib/signing/signer";
 
 type JSONSerializableType = string | number | boolean | [] | object;
 export class JwsBuilder {

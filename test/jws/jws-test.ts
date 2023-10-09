@@ -1,10 +1,10 @@
 import {describe, test} from "node:test";
-import {JWS} from "../../lib/jws/jws";
+import {JWS} from "@lib/jws/jws";
 import * as assert from "assert";
-import {JWKParser} from "../../lib/jwk/jwk-parser";
-import {JwsBuilder} from "../../lib/jws/jws-builder";
-import {JWK} from "../../lib/jwk/jwk";
-import {JwsValidator} from "../../lib/validation/jws-validator";
+import {JWKParser} from "@lib/jwk/jwk-parser";
+import {JwsBuilder} from "@lib/jws/jws-builder";
+import {JWK} from "@lib/jwk/jwk";
+import {JwsValidator} from "@lib/validation/jws-validator";
 
 test("parsing works", () => {
     const token = "eyJ0eXAiOiJKV1QiLA0KICJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJqb2UiLA0KICJleHAiOjEzMDA4MTkzODAsDQogImh0dHA6Ly9leGFtcGxlLmNvbS9pc19yb290Ijp0cnVlfQ.dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk";

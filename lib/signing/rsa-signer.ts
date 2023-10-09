@@ -1,8 +1,8 @@
-import {Signer} from "./signer";
-import {JWK} from "../jwk/jwk";
+import {Signer} from "@lib/signing/signer";
+import {JWK} from "@lib/jwk/jwk";
 import {constants, createPrivateKey, createSign} from "crypto";
-import {Algorithm} from "../jwa";
-import {NodeAlgorithmMappings} from "../node-algorithm-mappings";
+import {Algorithm} from "@lib/jwa";
+import {NodeAlgorithmMappings} from "@lib/node-algorithm-mappings";
 
 export class RSASigner implements Signer {
 

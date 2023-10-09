@@ -1,10 +1,10 @@
 import {describe, test} from "node:test";
-import {JwsValidator} from "../lib/validation/jws-validator";
-import {JWK} from "../lib/jwk/jwk";
-import {JWKParser} from "../lib/jwk/jwk-parser";
-import {JwsBuilder} from "../lib/jws/jws-builder";
+import {JwsValidator} from "@lib/validation/jws-validator";
+import {JWK} from "@lib/jwk/jwk";
+import {JWKParser} from "@lib/jwk/jwk-parser";
+import {JwsBuilder} from "@lib/jws/jws-builder";
 import * as assert from "assert";
-import {JWS} from "../lib/jws/jws";
+import {JWS} from "@lib/jws/jws";
 
 describe("validating tokens using HMAC signatures", () => {
 

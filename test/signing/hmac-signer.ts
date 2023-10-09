@@ -1,12 +1,12 @@
 import {describe, test} from "node:test";
-import {HMACSigner} from "../../lib/signing/hmac-signer";
-import {Signer} from "../../lib/signing/signer";
-import {Algorithm} from "../../lib/jwa";
-import {JWK} from "../../lib/jwk/jwk";
-import {JWKParser} from "../../lib/jwk/jwk-parser";
+import {HMACSigner} from "@lib/signing/hmac-signer";
+import {Signer} from "@lib/signing/signer";
+import {Algorithm} from "@lib/jwa";
+import {JWK} from "@lib/jwk/jwk";
+import {JWKParser} from "@lib/jwk/jwk-parser";
 import * as assert from "assert";
-import {JWS} from "../../lib/jws/jws";
-import {JwsValidator} from "../../lib/validation/jws-validator";
+import {JWS} from "@lib/jws/jws";
+import {JwsValidator} from "@lib/validation/jws-validator";
 
 describe("HMAC signing", () => {
 

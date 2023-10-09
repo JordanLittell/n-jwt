@@ -1,5 +1,5 @@
-import {NodeAlgorithmMappings} from "../../node-algorithm-mappings";
-import {Algorithm} from "../../jwa";
+import {NodeAlgorithmMappings} from "@lib//node-algorithm-mappings";
+import {Algorithm} from "@lib/jwa";
 import {createHash, randomBytes} from "crypto";
 
 export default class SHAGenerator {

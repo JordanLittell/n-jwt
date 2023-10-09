@@ -1,15 +1,28 @@
 {
   "compilerOptions": {
+    "baseUrl": "./",
     "noImplicitAny": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "sourceMap": true,
+    "inlineSourceMap": false,
+    "inlineSources": true,
+    "declaration": false,
+    "noEmit": false,
+    "outDir": "./.ts-node",
+    "target": "es5",
+    "module": "commonjs",
+    "paths": {
+      "@lib/*": ["lib/*"]
+    }
   },
   "moduleResolution": "node",
   "include": [
     "lib/**/*",
-    "test/**/*"
   ],
   "ts-node": {
-    // Do not forget to `npm i -D tsconfig-paths`
-    "require": ["tsconfig-paths/register"]
+    "require": ["tsconfig-paths/register.js"],
+    "cwd": "./n-jwt/lib",
+    "projectSearchDir": "./n-jwt/lib",
+    "project": "./n-jwt/tsconfig.json"
   }
 }
