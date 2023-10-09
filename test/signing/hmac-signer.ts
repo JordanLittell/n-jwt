@@ -1,4 +1,3 @@
-import {describe, test} from "node:test";
 import {HMACSigner} from "@lib/signing/hmac-signer";
 import {Signer} from "@lib/signing/signer";
 import {Algorithm} from "@lib/jwa";
@@ -16,13 +15,13 @@ describe("HMAC signing", () => {
             "k":"AyM1SysPpbyDfgZld3umj1qzKObwVMkoqQ-EstJQLr_T-1qS0gZH75aKtMN3Yj0iPS4hcgUuTwjAzZr1Z9CAow"
         }`);
 
-    test("supports sha256", () => {
+    it("supports sha256", () => {
         const signer: Signer = new HMACSigner(Algorithm.HS256);
         assert.doesNotThrow(() => signer.sign(signingInput, jwk));
     });
 
 
-    test("It parses tokens from other libraries", () => {
+    it("It parses tokens from other libraries", () => {
         // token taken from https://github.com/michaelrhanson/jwt-js/blob/master/tests/jsonWebTokenTest.htm
         const token = "eyJ0eXAiOiJKV1QiLA0KICJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJqb2UiLA0KICJleHAiOjEzMDA4MTkzODAsDQogImh0dHA6Ly9leGFtcGxlLmNvbS9pc19yb290Ijp0cnVlfQ.AF9JZKWRn2omJDrJrWeoVQyjR3PcGFiAe0_dC04hwyE";
         const jwk: JWK = new JWKParser().parse(`{
@@ -34,12 +33,12 @@ describe("HMAC signing", () => {
         new JwsValidator(jws, jwk);
     });
 
-    test("supports sha512", () => {
+    it("supports sha512", () => {
         const signer: Signer = new HMACSigner(Algorithm.HS512);
         assert.doesNotThrow(() => signer.sign(signingInput, jwk));
     });
 
-    test("supports sha384", () => {
+    it("supports sha384", () => {
         const signer: Signer = new HMACSigner(Algorithm.HS384);
         assert.doesNotThrow(() => signer.sign(signingInput, jwk));
     });

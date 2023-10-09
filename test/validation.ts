@@ -1,4 +1,3 @@
-import {describe, test} from "node:test";
 import {JwsValidator} from "@lib/validation/jws-validator";
 import {JWK} from "@lib/jwk/jwk";
 import {JWKParser} from "@lib/jwk/jwk-parser";
@@ -14,7 +13,7 @@ describe("validating tokens using HMAC signatures", () => {
         signature: "U3NjSl9zZFVUaEhlOFEwU2pUOEdPdEt2bGMteWxjejZ1V1BmWURyUGVFcUpvc2pmQVdldmwxWUg4dHh0S2FObkNBR1lub08zM2d4aHRqZFVZenRGbmc"
     };
 
-   test("validator returns true when signature is valid", () => {
+   it("validator returns true when signature is valid", () => {
        const jwkStr = `{
         "kty":"oct",
         "k":"AyM1SysPpbyDfgZld3umj1qzKObwVMkoqQ-EstJQLr_T-1qS0gZH75aKtMN3Yj0iPS4hcgUuTwjAzZr1Z9CAow"
@@ -27,7 +26,7 @@ describe("validating tokens using HMAC signatures", () => {
        assert.equal(validator.validate(), true);
    });
 
-    test("validator returns false when signature is not valid", () => {
+    it("validator returns false when signature is not valid", () => {
         const headers = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9";
         const payload = "eyJpc3MiOiJqb2UiLCJleHAiOiIxMzAwODE5MzgwIn0";
         const sig = "INVALID!!!___U3NjSl9zZFVUaEhlOFEwU2pUOEdPdEt2bGMteWxjejZ1V";
@@ -44,7 +43,7 @@ describe("validating tokens using HMAC signatures", () => {
         assert.equal(validator.validate(), false);
     });
 
-    test("validator returns false when key is invalid", () => {
+    it("validator returns false when key is invalid", () => {
         const jwkStr = `{
         "kty":"oct",
         "k":"invalid"
@@ -57,7 +56,7 @@ describe("validating tokens using HMAC signatures", () => {
         assert.equal(validator.validate(), false);
     });
 
-    test("validator returns false when the token has been tampered", () => {
+    it("validator returns false when the token has been tampered", () => {
         const jwkStr = `{
             "kty":"oct",
             "k":"AyM1SysPpbyDfgZld3umj1qzKObwVMkoqQ-EstJQLr_T-1qS0gZH75aKtMN3Yj0iPS4hcgUuTwjAzZr1Z9CAow"

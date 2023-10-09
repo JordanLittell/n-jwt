@@ -8,16 +8,20 @@
     "inlineSources": true,
     "declaration": false,
     "noEmit": false,
-    "outDir": "./.ts-node",
-    "target": "es5",
+    "outDir": "build",
+    "target": "es6",
     "module": "commonjs",
     "paths": {
       "@lib/*": ["lib/*"]
-    }
+    },
+    "types": ["mocha", "node"]
   },
   "moduleResolution": "node",
   "include": [
     "lib/**/*",
+  ],
+  "exclude": [
+    "test/**/*",
   ],
   "ts-node": {
     "require": ["tsconfig-paths/register.js"],
