@@ -4,7 +4,7 @@ import {JWS} from "@lib/jws/jws";
 import {base64URLEncode} from "@lib/encoding";
 import {Algorithm} from "@lib/jwa";
 import {SignerFactory} from "@lib/signing/signer-factory";
-import Signer from "@lib/signing/signer";
+import {Signer} from "@lib/signing/signer";
 
 type JSONSerializableType = string | number | boolean | [] | object;
 export class JwsBuilder {
