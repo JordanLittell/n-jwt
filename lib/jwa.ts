@@ -37,7 +37,7 @@ export const ECDSADigests : Record<string, string> = {
     'ES256': 'sha256',
     'ES384': 'sha384',
     'ES512': 'sha512'
-}
+};
 
 
 export const getAlgorithm = (algorithm?: string) : Algorithm => {

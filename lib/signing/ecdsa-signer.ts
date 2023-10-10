@@ -1,8 +1,7 @@
 import {Signer} from "@lib/signing/signer";
 import {Algorithm, ECDSADigests} from "@lib/jwa";
 import {JWK} from "@lib/jwk/jwk";
-import {constants, createPrivateKey, createSign} from "crypto";
-import {NodeAlgorithmMappings} from "@lib/node-algorithm-mappings";
+import {createPrivateKey, createSign} from "crypto";
 
 export class ECDSASigner implements Signer {
 
