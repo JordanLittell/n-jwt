@@ -2,7 +2,7 @@ import * as crypto from "crypto";
 import {Signer} from "@lib/signing/signer";
 import {JWK} from "@lib/jwk/jwk";
 import {NodeAlgorithmMappings} from "@lib/node-algorithm-mappings";
-import {Algorithm} from "@lib/jwa";
+import {SigningAlgorithms} from "@lib/jwa";
 
 /**
  * Signing algorithm is derived from JOSE headers. The JWK is used to get the parameters for the signing algorithm.
@@ -10,9 +10,9 @@ import {Algorithm} from "@lib/jwa";
  */
 export class HMACSigner implements Signer {
 
-    readonly algorithm: Algorithm;
+    readonly algorithm: SigningAlgorithms;
 
-    constructor(algorithm: Algorithm) {
+    constructor(algorithm: SigningAlgorithms) {
         this.algorithm = algorithm;
     }
 
@@ -38,8 +38,8 @@ export class HMACSigner implements Signer {
         throw new Error("Expected to find JWK key parameter 'k'");
     }
 
-    private isHMACAlgorithm(algorithm: Algorithm) : boolean {
-        return new Set([Algorithm.HS512, Algorithm.HS384, Algorithm.HS256]).has(algorithm);
+    private isHMACAlgorithm(algorithm: SigningAlgorithms) : boolean {
+        return new Set([SigningAlgorithms.HS512, SigningAlgorithms.HS384, SigningAlgorithms.HS256]).has(algorithm);
     }
 
 }

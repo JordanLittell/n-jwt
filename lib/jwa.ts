@@ -10,7 +10,7 @@
  * On recent releases of OpenSSL, openssl list -digest-algorithms will display the available digest algorithms.
  */
 
-export enum Algorithm {
+export enum SigningAlgorithms {
     // HMAC algorithms
     HS512 = 'HS512',
     HS384 = 'HS384',
@@ -33,31 +33,54 @@ export enum Algorithm {
     none = 'none'
 }
 
+/**
+ * These header values for alg are intended to be used for encryption as per: https://datatracker.ietf.org/doc/html/rfc7518#section-4.1
+ */
+export enum EncryptionAlgorithms {
+    RSA1_5 = 'RSA1_5',
+    'RSA-OAEP' = 'RSA-OAEP',
+    'RSA-OAEP-256' = 'RSA-OAEP-256',
+    A128KW = 'A128KW',
+    A192KW = 'A192KW',
+    A256KW = 'A256KW',
+    dir = 'dir',
+    'ECDH-ES' = 'ECDH-ES',
+    'ECDH-ES+A128KW' = 'ECDH-ES+A128KW',
+    'ECDH-ES+A192KW' = 'ECDH-ES+A192KW',
+    'ECDH-ES+A256KW' = 'ECDH-ES+A256KW',
+    'A128GCMKW' = 'A128GCMKW',
+    'A192GCMKW' = 'A192GCMKW',
+    'A256GCMKW' = 'A256GCMKW',
+    'PBES2-HS256+A128KW' = 'PBES2-HS256+A128KW',
+    'PBES2-HS384+A192KW' = 'PBES2-HS384+A192KW',
+    'PBES2-HS512+A256KW' = 'PBES2-HS512+A256KW',
+}
+
 export const ECDSADigests : Record<string, string> = {
     'ES256': 'sha256',
     'ES384': 'sha384',
     'ES512': 'sha512'
 };
 
-
-export const getAlgorithm = (algorithm?: string) : Algorithm => {
+export const getAlgorithm = (algorithm?: string) : SigningAlgorithms => {
     switch(algorithm) {
-        case undefined: return Algorithm.none;
-        case "HS512": return Algorithm.HS512;
-        case "HS384": return Algorithm.HS384;
-        case "HS256": return Algorithm.HS256;
+        case undefined: return SigningAlgorithms.none;
+        case "HS512": return SigningAlgorithms.HS512;
+        case "HS384": return SigningAlgorithms.HS384;
+        case "HS256": return SigningAlgorithms.HS256;
 
-        case "RS512": return Algorithm.RS512;
-        case "RS384": return Algorithm.RS384;
-        case "RS256": return Algorithm.RS256;
+        case "RS512": return SigningAlgorithms.RS512;
+        case "RS384": return SigningAlgorithms.RS384;
+        case "RS256": return SigningAlgorithms.RS256;
 
-        case "ES512": return Algorithm.ES512;
-        case "ES384": return Algorithm.ES384;
-        case "ES256": return Algorithm.ES256;
+        case "ES512": return SigningAlgorithms.ES512;
+        case "ES384": return SigningAlgorithms.ES384;
+        case "ES256": return SigningAlgorithms.ES256;
 
-        case "PS512": return Algorithm.PS512;
-        case "PS384": return Algorithm.PS384;
-        case "PS256": return Algorithm.PS256;
+        case "PS512": return SigningAlgorithms.PS512;
+        case "PS384": return SigningAlgorithms.PS384;
+        case "PS256": return SigningAlgorithms.PS256;
         default: throw new Error(`unrecognized alg: ${algorithm}`);
     }
 };
+

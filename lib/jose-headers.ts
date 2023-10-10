@@ -1,4 +1,5 @@
-// JSON Object Signing and Encryption
+// Header values for JSON Object Signing and Encryption (JOSE)
+// together, these header values determine how to sign, encrypt, and validate JSON payloads sent through a network.
 export enum Header {
     alg = 'alg', // specified in jwa
     enc = 'enc',

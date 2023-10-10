@@ -2,7 +2,7 @@
  * A JSON Web Key (JWK) is a JavaScript Object Notation (JSON) data structure that represents a cryptographic key
  * RFC: https://datatracker.ietf.org/doc/html/rfc7517
  */
-import {Algorithm} from "../jwa";
+import {SigningAlgorithms} from "../jwa";
 import {RSAPrime} from "./crypto-key-params";
 
 export const EC_KEY_TYPE = 'EC';
@@ -31,7 +31,7 @@ interface CommonKeyParameters {
     kty: KeyType,
     use?: Usage,
     key_ops?: KeyOperation[],
-    alg?: Algorithm,
+    alg?: SigningAlgorithms,
     kid?: string,
     x5u?: string,
     x5c?: string,

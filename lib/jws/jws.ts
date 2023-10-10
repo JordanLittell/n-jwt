@@ -7,6 +7,7 @@
  */
 import {Header} from "@lib/jose-headers";
 import {base64URLDecode, base64URLEncode} from "@lib/encoding";
+import {JwsBuilder} from "@lib/jws/jws-builder";
 
 export class JWS {
     // Note that the payload can be any content and need not be a representation of a JSON object.
@@ -19,7 +20,11 @@ export class JWS {
     // parsedHeaders give structure to the headers to simplify business logic herein
     parsedHeaders: Partial<Record<Header, string>>;
 
-    static parse (token: string) : JWS {
+    static builder () : JwsBuilder {
+        return new JwsBuilder();
+    }
+
+    static fromToken (token: string) : JWS {
         const [headers, payload, signature] = token.split('.').map((input) => base64URLDecode(input));
         return new JWS(headers, payload, signature);
     }

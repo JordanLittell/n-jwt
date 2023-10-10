@@ -1,14 +1,14 @@
 import {Signer} from "@lib/signing/signer";
 import {JWK} from "@lib/jwk/jwk";
 import {constants, createPrivateKey, createSign} from "crypto";
-import {Algorithm} from "@lib/jwa";
+import {SigningAlgorithms} from "@lib/jwa";
 import {NodeAlgorithmMappings} from "@lib/node-algorithm-mappings";
 
 export class RSASigner implements Signer {
 
-    readonly algorithm: Algorithm;
+    readonly algorithm: SigningAlgorithms;
 
-    constructor(algorithm: Algorithm) {
+    constructor(algorithm: SigningAlgorithms) {
         this.algorithm = algorithm;
     }
 
@@ -30,7 +30,7 @@ export class RSASigner implements Signer {
         throw new Error("Expected JWK to have RSA Private Key parameters");
     }
 
-    private isRSAAlgorithm(algorithm: Algorithm) : boolean {
-        return new Set([Algorithm.RS256, Algorithm.RS512, Algorithm.RS384]).has(algorithm);
+    private isRSAAlgorithm(algorithm: SigningAlgorithms) : boolean {
+        return new Set([SigningAlgorithms.RS256, SigningAlgorithms.RS512, SigningAlgorithms.RS384]).has(algorithm);
     }
 }

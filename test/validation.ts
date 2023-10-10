@@ -20,7 +20,7 @@ describe("validating tokens using HMAC signatures", () => {
      }`;
        const jwk: JWK = (new JWKParser()).parse(jwkStr);
 
-       const jws: JWS = JWS.parse(`${validToken.headers}.${validToken.payload}.${validToken.signature}`);
+       const jws: JWS = JWS.fromToken(`${validToken.headers}.${validToken.payload}.${validToken.signature}`);
 
        const validator = new JwsValidator(jws, jwk);
        assert.equal(validator.validate(), true);
@@ -37,7 +37,7 @@ describe("validating tokens using HMAC signatures", () => {
         }`;
         const jwk: JWK = (new JWKParser()).parse(jwkStr);
 
-        const jws: JWS = JWS.parse(`${headers}.${payload}.${sig}`);
+        const jws: JWS = JWS.fromToken(`${headers}.${payload}.${sig}`);
 
         const validator = new JwsValidator(jws, jwk);
         assert.equal(validator.validate(), false);
@@ -50,7 +50,7 @@ describe("validating tokens using HMAC signatures", () => {
      }`;
         const jwk: JWK = (new JWKParser()).parse(jwkStr);
 
-        const jws: JWS = JWS.parse(`${validToken.headers}.${validToken.payload}.${validToken.signature}`);
+        const jws: JWS = JWS.fromToken(`${validToken.headers}.${validToken.payload}.${validToken.signature}`);
 
         const validator = new JwsValidator(jws, jwk);
         assert.equal(validator.validate(), false);
@@ -84,7 +84,7 @@ describe("validating tokens using HMAC signatures", () => {
 
         const tamperedPayload = attackerJWS.serialize().split('.')[1];
         const tamperedToken = `${validToken.headers}.${tamperedPayload}.${validToken.signature}`;
-        const tamperedJWS = JWS.parse(tamperedToken);
+        const tamperedJWS = JWS.fromToken(tamperedToken);
 
 
         const validator = new JwsValidator(tamperedJWS, jwk);

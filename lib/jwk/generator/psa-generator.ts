@@ -1,15 +1,15 @@
 import {JWK, KeyOperation} from "@lib/jwk/jwk";
 import {JWKParser} from "@lib/jwk/jwk-parser";
 import * as crypto from "crypto";
-import {Algorithm} from "@lib/jwa";
+import {SigningAlgorithms} from "@lib/jwa";
 import {RSAPSSKeyPairKeyObjectOptions} from "crypto";
 
 export default class PSAGenerator {
 
-    private readonly alg : Algorithm;
+    private readonly alg : SigningAlgorithms;
     private readonly keyOps? : KeyOperation[];
 
-    constructor (alg: Algorithm, keyOps?: KeyOperation[]) {
+    constructor (alg: SigningAlgorithms, keyOps?: KeyOperation[]) {
         this.alg = alg;
         this.keyOps = keyOps;
     }
@@ -41,11 +41,11 @@ export default class PSAGenerator {
 
     private getSaltLength() : string {
         switch (this.alg) {
-            case Algorithm.PS256:
+            case SigningAlgorithms.PS256:
                 return '32';
-            case Algorithm.PS384:
+            case SigningAlgorithms.PS384:
                 return '48';
-            case Algorithm.PS512:
+            case SigningAlgorithms.PS512:
                 return '64';
             default:
                 throw new Error(`unsupported algorithm ${this.alg}`);
@@ -54,11 +54,11 @@ export default class PSAGenerator {
 
     private getHashFn() : string {
         switch (this.alg) {
-            case Algorithm.PS256:
+            case SigningAlgorithms.PS256:
                 return 'SHA-256';
-            case Algorithm.PS384:
+            case SigningAlgorithms.PS384:
                 return 'SHA-384';
-            case Algorithm.PS512:
+            case SigningAlgorithms.PS512:
                 return 'SHA-512';
             default:
                 throw new Error(`unsupported algorithm ${this.alg}`);
@@ -67,11 +67,11 @@ export default class PSAGenerator {
 
     private getModulusLength() : number {
         switch (this.alg) {
-            case Algorithm.PS256:
+            case SigningAlgorithms.PS256:
                 return 2048;
-            case Algorithm.PS384:
+            case SigningAlgorithms.PS384:
                 return 3072;
-            case Algorithm.PS512:
+            case SigningAlgorithms.PS512:
                 return 4096;
             default:
                 throw new Error(`unsupported algorithm ${this.alg}`);

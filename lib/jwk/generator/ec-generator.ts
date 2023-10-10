@@ -1,14 +1,14 @@
 import {JWK, KeyOperation} from "../jwk";
 import {JWKParser} from "../jwk-parser";
 import * as crypto from "crypto";
-import {Algorithm} from "@lib/jwa";
+import {SigningAlgorithms} from "@lib/jwa";
 
 export default class ECGenerator {
 
-    private readonly alg : Algorithm;
+    private readonly alg : SigningAlgorithms;
     private readonly keyOps? : KeyOperation[];
 
-    constructor (alg: Algorithm, keyOps?: KeyOperation[]) {
+    constructor (alg: SigningAlgorithms, keyOps?: KeyOperation[]) {
         this.alg = alg;
         this.keyOps = keyOps;
     }
@@ -38,11 +38,11 @@ export default class ECGenerator {
      */
     private getNamedCurve() : string {
         switch (this.alg) {
-            case Algorithm.ES256:
+            case SigningAlgorithms.ES256:
                 return 'P-256';
-            case Algorithm.ES384:
+            case SigningAlgorithms.ES384:
                 return 'P-384';
-            case Algorithm.ES512:
+            case SigningAlgorithms.ES512:
                 return 'P-521';
             default:
                 throw new Error(`unsupported algorithm ${this.alg}`);

@@ -1,5 +1,5 @@
 import {ECPrivate, ECPublic, Octet, RSAPrime, RSAPrivate, RSAPublic} from "@lib/jwk/crypto-key-params";
-import {Algorithm} from "@lib/jwa";
+import {SigningAlgorithms} from "@lib/jwa";
 import {JWK, KeyOperation, KeyType, Usage} from "@lib/jwk/jwk";
 
 export class JwkBuilder {
@@ -8,7 +8,7 @@ export class JwkBuilder {
     private _kty?: KeyType;
     private _use?: Usage;
     private _key_ops?: KeyOperation[];
-    private _alg?: Algorithm;
+    private _alg?: SigningAlgorithms;
     private _kid?: string;
     private _x5u?: string;
     private _x5c?: string;
@@ -68,7 +68,7 @@ export class JwkBuilder {
         return this;
     }
 
-    withAlg(value?: Algorithm) : JwkBuilder {
+    withAlg(value?: SigningAlgorithms) : JwkBuilder {
         this._alg = value;
         return this;
     }

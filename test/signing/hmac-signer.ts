@@ -1,6 +1,6 @@
 import {HMACSigner} from "@lib/signing/hmac-signer";
 import {Signer} from "../../lib/signing/signer";
-import {Algorithm} from "@lib/jwa";
+import {SigningAlgorithms} from "@lib/jwa";
 import {JWK} from "@lib/jwk/jwk";
 import {JWKParser} from "@lib/jwk/jwk-parser";
 import * as assert from "assert";
@@ -16,7 +16,7 @@ describe("HMAC signing", () => {
         }`);
 
     it("supports sha256", () => {
-        const signer: Signer = new HMACSigner(Algorithm.HS256);
+        const signer: Signer = new HMACSigner(SigningAlgorithms.HS256);
         assert.doesNotThrow(() => signer.sign(signingInput, jwk));
     });
 
@@ -29,17 +29,17 @@ describe("HMAC signing", () => {
             "k":"hmackey"
         }`);
 
-        const jws = JWS.parse(token);
+        const jws = JWS.fromToken(token);
         new JwsValidator(jws, jwk);
     });
 
     it("supports sha512", () => {
-        const signer: Signer = new HMACSigner(Algorithm.HS512);
+        const signer: Signer = new HMACSigner(SigningAlgorithms.HS512);
         assert.doesNotThrow(() => signer.sign(signingInput, jwk));
     });
 
     it("supports sha384", () => {
-        const signer: Signer = new HMACSigner(Algorithm.HS384);
+        const signer: Signer = new HMACSigner(SigningAlgorithms.HS384);
         assert.doesNotThrow(() => signer.sign(signingInput, jwk));
     });
 });

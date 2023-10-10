@@ -1,14 +1,14 @@
 import {JWK, KeyOperation} from "@lib/jwk/jwk";
 import {JWKParser} from "@lib/jwk/jwk-parser";
 import * as crypto from "crypto";
-import {Algorithm} from "@lib/jwa";
+import {SigningAlgorithms} from "@lib/jwa";
 
 export default class RSAGenerator {
 
-    private readonly alg : Algorithm;
+    private readonly alg : SigningAlgorithms;
     private readonly keyOps? : KeyOperation[];
 
-    constructor (alg: Algorithm, keyOps?: KeyOperation[]) {
+    constructor (alg: SigningAlgorithms, keyOps?: KeyOperation[]) {
         this.alg = alg;
         this.keyOps = keyOps;
     }
@@ -37,11 +37,11 @@ export default class RSAGenerator {
 
     private getModulusLength() : number {
         switch (this.alg) {
-            case Algorithm.RS256:
+            case SigningAlgorithms.RS256:
                 return 2048;
-            case Algorithm.RS384:
+            case SigningAlgorithms.RS384:
                 return 3072;
-            case Algorithm.RS512:
+            case SigningAlgorithms.RS512:
                 return 4096;
             default:
                 throw new Error(`unsupported algorithm ${this.alg}`);

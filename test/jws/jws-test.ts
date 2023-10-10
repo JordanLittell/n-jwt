@@ -7,7 +7,7 @@ import {JwsValidator} from "@lib/validation/jws-validator";
 
 it("parsing works", () => {
     const token = "eyJ0eXAiOiJKV1QiLA0KICJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJqb2UiLA0KICJleHAiOjEzMDA4MTkzODAsDQogImh0dHA6Ly9leGFtcGxlLmNvbS9pc19yb290Ijp0cnVlfQ.dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk";
-    assert.doesNotThrow(() => JWS.parse(token));
+    assert.doesNotThrow(() => JWS.fromToken(token));
 });
 
 it("parsing and serializing do not modify the token", () => {
@@ -36,7 +36,7 @@ it("parsing and serializing do not modify the token", () => {
         .withJWK(jwk)
         .build();
 
-    const parsedJWS = JWS.parse(jws.serialize());
+    const parsedJWS = JWS.fromToken(jws.serialize());
 
     assert.equal(parsedJWS.serialize(), jws.serialize());
 });

@@ -1,12 +1,12 @@
 import {NodeAlgorithmMappings} from "@lib//node-algorithm-mappings";
-import {Algorithm} from "@lib/jwa";
+import {SigningAlgorithms} from "@lib/jwa";
 import {createHash, randomBytes} from "crypto";
 
 export default class SHAGenerator {
 
-    private readonly alg: Algorithm;
+    private readonly alg: SigningAlgorithms;
 
-    constructor(alg: Algorithm) {
+    constructor(alg: SigningAlgorithms) {
         this.alg = alg;
     }
 
@@ -18,11 +18,11 @@ export default class SHAGenerator {
 
     private getRandomKey() : Buffer {
         switch (this.alg) {
-            case Algorithm.HS256:
+            case SigningAlgorithms.HS256:
                 return randomBytes(32);
-            case Algorithm.HS512:
+            case SigningAlgorithms.HS512:
                 return randomBytes(64);
-            case Algorithm.HS384:
+            case SigningAlgorithms.HS384:
                 return randomBytes(48);
 
             default:

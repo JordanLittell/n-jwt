@@ -1,4 +1,4 @@
-import {Algorithm} from "@lib/jwa";
+import {SigningAlgorithms} from "@lib/jwa";
 import * as assert from "assert";
 import {JwsBuilder} from "@lib/jws/jws-builder";
 import {JwsValidator} from "@lib/validation/jws-validator";
@@ -8,7 +8,7 @@ describe("JWK Generation", () => {
 
     it("SHA256 octet keys are supported", () => {
         const generator = new JWKGenerator({
-            alg: Algorithm.HS256,
+            alg: SigningAlgorithms.HS256,
             kid: 'secret'
         });
 
@@ -17,7 +17,7 @@ describe("JWK Generation", () => {
 
     it("SHA384 octet keys are supported", () => {
         const generator = new JWKGenerator({
-            alg: Algorithm.HS384,
+            alg: SigningAlgorithms.HS384,
             kid: 'secret'
         });
 
@@ -26,7 +26,7 @@ describe("JWK Generation", () => {
 
     it("SHA512 octet keys are supported", () => {
         const generator = new JWKGenerator({
-            alg: Algorithm.HS512,
+            alg: SigningAlgorithms.HS512,
             kid: 'secret'
         });
 
@@ -35,7 +35,7 @@ describe("JWK Generation", () => {
 
     it("RSA256 keys are supported", () => {
         const generator = new JWKGenerator({
-            alg: Algorithm.RS256,
+            alg: SigningAlgorithms.RS256,
             kid: 'secret',
             key_ops: ['sign']
         });
@@ -45,7 +45,7 @@ describe("JWK Generation", () => {
 
     it("RSA384 keys are supported", () => {
         const generator = new JWKGenerator({
-            alg: Algorithm.RS384,
+            alg: SigningAlgorithms.RS384,
             kid: 'secret',
             key_ops: ['sign']
         });
@@ -55,7 +55,7 @@ describe("JWK Generation", () => {
 
     it("RSA512 keys are supported", () => {
         const generator = new JWKGenerator({
-            alg: Algorithm.RS512,
+            alg: SigningAlgorithms.RS512,
             kid: 'secret',
             key_ops: ['sign', 'verify']
         });
@@ -65,7 +65,7 @@ describe("JWK Generation", () => {
 
     it("Keys for verification will not have private params", () => {
         const generator = new JWKGenerator({
-            alg: Algorithm.RS512,
+            alg: SigningAlgorithms.RS512,
             kid: 'secret',
             key_ops: ['verify']
         });
@@ -84,7 +84,7 @@ describe("JWK Generation", () => {
 
     it("JWS octet objects signed with JWKs vended from the generator can be verified", () => {
         const generator = new JWKGenerator({
-            alg: Algorithm.HS256,
+            alg: SigningAlgorithms.HS256,
             kid: 'secret',
             key_ops: ['sign', 'verify']
         });
@@ -98,10 +98,10 @@ describe("JWK Generation", () => {
                 foo: "bar"
             })
             .withHeaders({
-                alg: Algorithm.HS256
+                alg: SigningAlgorithms.HS256
             })
             .withProtectedHeaders({
-                alg: Algorithm.HS256
+                alg: SigningAlgorithms.HS256
             })
             .build();
 
@@ -112,7 +112,7 @@ describe("JWK Generation", () => {
 
     it("It generates EC256 keys", () => {
         const generator = new JWKGenerator({
-            alg: Algorithm.ES256,
+            alg: SigningAlgorithms.ES256,
             kid: 'secret',
             key_ops: ['sign', 'verify']
         });
@@ -122,7 +122,7 @@ describe("JWK Generation", () => {
 
     it("It generates EC384 keys", () => {
         const generator = new JWKGenerator({
-            alg: Algorithm.ES384,
+            alg: SigningAlgorithms.ES384,
             kid: 'secret',
             key_ops: ['sign', 'verify']
         });
@@ -132,7 +132,7 @@ describe("JWK Generation", () => {
 
     it("It generates EC512 keys", () => {
         const generator = new JWKGenerator({
-            alg: Algorithm.ES512,
+            alg: SigningAlgorithms.ES512,
             kid: 'secret',
             key_ops: ['sign', 'verify']
         });
@@ -142,7 +142,7 @@ describe("JWK Generation", () => {
 
     it('generates keys that can correct validate signed tokens', () => {
         const generator = new JWKGenerator({
-            alg: Algorithm.ES256,
+            alg: SigningAlgorithms.ES256,
             kid: 'secret',
             key_ops: ['sign', 'verify']
         });
@@ -156,10 +156,10 @@ describe("JWK Generation", () => {
                 foo: "bar"
             })
             .withHeaders({
-                alg: Algorithm.ES256
+                alg: SigningAlgorithms.ES256
             })
             .withProtectedHeaders({
-                alg: Algorithm.ES256
+                alg: SigningAlgorithms.ES256
             })
             .build();
 

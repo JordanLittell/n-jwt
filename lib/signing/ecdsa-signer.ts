@@ -1,13 +1,13 @@
 import {Signer} from "@lib/signing/signer";
-import {Algorithm, ECDSADigests} from "@lib/jwa";
+import {SigningAlgorithms, ECDSADigests} from "@lib/jwa";
 import {JWK} from "@lib/jwk/jwk";
 import {createPrivateKey, createSign} from "crypto";
 
 export class ECDSASigner implements Signer {
 
-    readonly algorithm: Algorithm;
+    readonly algorithm: SigningAlgorithms;
 
-    constructor(algorithm: Algorithm) {
+    constructor(algorithm: SigningAlgorithms) {
         this.algorithm = algorithm;
     }
 
@@ -30,7 +30,7 @@ export class ECDSASigner implements Signer {
         throw new Error("Expected JWK to have ECDSA Private Key parameters");
     }
 
-    private isECDSAAlgorithm(algorithm: Algorithm) : boolean {
-        return new Set([Algorithm.ES256, Algorithm.ES512, Algorithm.ES384]).has(algorithm);
+    private isECDSAAlgorithm(algorithm: SigningAlgorithms) : boolean {
+        return new Set([SigningAlgorithms.ES256, SigningAlgorithms.ES512, SigningAlgorithms.ES384]).has(algorithm);
     }
 }

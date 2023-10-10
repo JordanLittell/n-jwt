@@ -5,3 +5,7 @@
  *
  * Algorithms that should be supported are here: https://datatracker.ietf.org/doc/html/rfc7518#section-4.1
  */
+
+export class JWE {
+
+}
