@@ -1,5 +1,5 @@
 import {HMACSigner} from "@lib/signing/hmac-signer";
-import {Signer} from "@lib/signing/signer";
+import {Signer} from "../../lib/signing/signer";
 import {Algorithm} from "@lib/jwa";
 import {JWK} from "@lib/jwk/jwk";
 import {JWKParser} from "@lib/jwk/jwk-parser";

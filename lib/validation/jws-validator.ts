@@ -1,4 +1,4 @@
-import {Algorithm, getAlgorithm} from "@lib/jwa";
+import {Algorithm, ECDSADigests, getAlgorithm} from "@lib/jwa";
 import {base64URLEncode} from "@lib/encoding";
 import {SignerFactory} from "@lib/signing/signer-factory";
 import {JWS} from "@lib/jws/jws";
@@ -32,17 +32,30 @@ export class JwsValidator {
 
                 return (calculatedSig === this.jws.signature);
             }
-
-            case Algorithm.RS256.toString(): {
+            case Algorithm.RS256.toString():
+            case Algorithm.RS384.toString():
+            case Algorithm.RS512.toString(): {
                 const publicKey = crypto.createPublicKey({
                     key: JSON.parse(this.jwk.serialize()),
                     format: 'jwk',
                     encoding: 'utf8'
                 });
 
-                const verify = crypto.createVerify(NodeAlgorithmMappings[Algorithm.RS256]);
+                const verify = crypto.createVerify(NodeAlgorithmMappings[getAlgorithm(alg)]);
                 verify.update(signingInput);
                 return verify.verify({key: publicKey, padding: constants.RSA_PKCS1_PADDING}, this.jws.signature, 'base64url');
+            }
+            case Algorithm.ES256.toString():
+            case Algorithm.ES384.toString():
+            case Algorithm.ES512.toString(): {
+                const publicKey = crypto.createPublicKey({
+                    key: JSON.parse(this.jwk.serialize()),
+                    format: 'jwk',
+                    encoding: 'utf8'
+                });
+                const verify = crypto.createVerify(ECDSADigests[alg]);
+                verify.update(signingInput);
+                return verify.verify(publicKey, this.jws.signature, 'base64url');
             }
 
             default: throw new Error(`Unsupported signing algorithm ${alg}!`);

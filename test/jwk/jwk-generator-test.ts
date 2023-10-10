@@ -139,4 +139,31 @@ describe("JWK Generation", () => {
 
         assert.doesNotThrow(() => generator.generate());
     });
+
+    it('generates keys that can correct validate signed tokens', () => {
+        const generator = new JWKGenerator({
+            alg: Algorithm.ES256,
+            kid: 'secret',
+            key_ops: ['sign', 'verify']
+        });
+
+        const jwk = generator.generate();
+
+        const builder = new JwsBuilder();
+        const jws = builder
+            .withJWK(jwk)
+            .withPayload({
+                foo: "bar"
+            })
+            .withHeaders({
+                alg: Algorithm.ES256
+            })
+            .withProtectedHeaders({
+                alg: Algorithm.ES256
+            })
+            .build();
+
+        assert.equal(new JwsValidator(jws, jwk).validate(), true);
+
+    });
 });
