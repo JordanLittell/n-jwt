@@ -92,6 +92,15 @@ export class JWK {
     // Octet
     k?: string;
 
+    /**
+     * Given a JKU, fetch the data from the URL and locate the key in the JWKS.
+     * If no key with the specified kid found, then KeyNotFound error is thrown.
+     * @param jwu - the location of the JWKS
+     */
+    static fromJKU(jwu: string) {
+
+    }
+
 
     constructor(params: CommonKeyParameters) {
         this.kty = params.kty;
