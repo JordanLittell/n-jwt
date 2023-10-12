@@ -36,11 +36,11 @@ export class AESEncrypter implements Encrypter {
     private getAlg() : string {
         switch (this.keySize) {
             case(128):
-                return 'aes-128-gcm'
+                return 'aes-128-gcm';
             case(256):
-                return 'aes-256-gcm'
+                return 'aes-256-gcm';
             case(192):
-                return 'aes-192-gcm'
+                return 'aes-192-gcm';
             default:
                 throw new Error(`Key size: ${this.keySize} not supported!!`);
         }

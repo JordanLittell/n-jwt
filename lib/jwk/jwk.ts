@@ -10,7 +10,7 @@ export const RSA_KEY_TYPE = 'RSA';
 export const OCT_KEY_TYPE = 'oct';
 
 export type KeyType = 'EC' | 'RSA' | 'oct';
-export type Usage = 'sig' | 'enc'; // sign or encrypt?
+export type Usage = 'sig' | 'enc'; // sign or encrypt
 
 /**
  * Identifies what key is to be used for:
@@ -91,15 +91,6 @@ export class JWK {
 
     // Octet
     k?: string;
-
-    /**
-     * Given a JKU, fetch the data from the URL and locate the key in the JWKS.
-     * If no key with the specified kid found, then KeyNotFound error is thrown.
-     * @param jwu - the location of the JWKS
-     */
-    static fromJKU(jwu: string) {
-
-    }
 
 
     constructor(params: CommonKeyParameters) {
