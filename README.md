@@ -1,5 +1,5 @@
 # Node JWT (n-jwt)
-[![CircleCI](https://dl.circleci.com/status-badge/img/circleci/QpYzT8jWrMkgEPvicwJuap/YNYnTVcP4HB47YfXPRmTX/tree/main.svg?style=svg&circle-token=cc1487f8c09dcc26fa3b7be11dadfeb157362edf)](https://dl.circleci.com/status-badge/redirect/circleci/QpYzT8jWrMkgEPvicwJuap/YNYnTVcP4HB47YfXPRmTX/tree/main) [![cov](https://JordanLittell.github.io/n-jwt/badges/coverage.svg)](https://github.com/JordanLittell/n-jwt/actions)
+[![CircleCI](https://dl.circleci.com/status-badge/img/circleci/QpYzT8jWrMkgEPvicwJuap/YNYnTVcP4HB47YfXPRmTX/tree/main.svg?style=svg&circle-token=cc1487f8c09dcc26fa3b7be11dadfeb157362edf)](https://dl.circleci.com/status-badge/redirect/circleci/QpYzT8jWrMkgEPvicwJuap/YNYnTVcP4HB47YfXPRmTX/tree/main) [![cov](https://JordanLittell.github.io/n-jwt/badges/coverage.svg?)](https://github.com/JordanLittell/n-jwt/actions)
 
 Produce and consume JSON objects secured with industry-standard encryption and signing algorithms.
 
