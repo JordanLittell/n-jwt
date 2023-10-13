@@ -143,12 +143,4 @@ export class JwkBuilder {
         this.k = params.k;
         return this;
     }
-
-    private validate() {
-        if (this._keyParamsSet) throw new Error(`
-        A JWK can only support one key! 
-        Make sure you are not setting multiple key params on the builder!`);
-
-        this._keyParamsSet = true;
-    }
 }

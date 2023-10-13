@@ -87,4 +87,13 @@ describe('hashing algorithms', () => {
         assert.doesNotThrow(() => jws.serialize());
         assert.equal(new JwsValidator(jws, jwk).validate(), true);
     });
+
+    it("throws on an unrecognized alg", () => {
+        const builder = new JwsBuilder()
+            .withHeaders({alg: "blah"})
+            .withProtectedHeaders({alg: "blah"})
+            .withPayload({"iss":"joe",  "exp": 1300819380, "http://example.com/is_root": true});
+
+        assert.throws(() => builder.build());
+    });
 });
