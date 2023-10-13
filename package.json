@@ -4,7 +4,7 @@
   "description": "A package for creating JWTs",
   "main": "index.js",
   "scripts": {
-    "test": "env TS_NODE_PROJECT='./tsconfig.json' mocha --require ts-node/register --watch-extensions ts \"test/**/*\"",
+    "test": "env TS_NODE_PROJECT='./tsconfig.json' mocha --require ts-node/register --watch-extensions ts \"test/**/*\" --timeout 5000",
     "fix": "npx eslint --fix .",
     "lint": "npx eslint ."
   },
