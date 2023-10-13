@@ -3,3 +3,5 @@ node_modules
 .idea
 .ts-node
 build
+.nyc_output
+coverage
