@@ -11,21 +11,20 @@ export class HttpClient implements JWKClient {
         return new Promise<JWK>((resolve, reject) => {
             https.request(url, (res) => {
                 res.setEncoding('utf8');
-                res.on('data', (chunk: any) => {
+                res.on('data', (chunk: string) => {
                     output += chunk;
                 });
 
                 res.on('end', () => {
-                    let keys = JSON.parse(output)['keys'];
-                    let jwkKeys = keys.map((key: any) => new JWKParser().parse(JSON.stringify(key)))
+                    const keys = JSON.parse(output)['keys'];
+                    const jwkKeys = keys.map((key: Record<string, string>) => new JWKParser().parse(JSON.stringify(key)));
                     resolve(new JWKS(jwkKeys).find(kid));
                 });
 
                 res.on('error', (err) => {
-                    reject(err)
+                    reject(err);
                 });
-            })
+            });
         });
     }
-
 }
