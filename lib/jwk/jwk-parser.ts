@@ -10,7 +10,7 @@ export class JWKParser {
     public parse(payload: string) : JWK {
         const jwkJSON = JSON.parse(payload);
 
-        const {kty, use, key_ops, alg, kid, x5u, x5c, x5t, x5t_S256} = jwkJSON;
+        const {kty, use, key_ops, alg, kid, jku, x5u, x5c, x5t, x5t_S256} = jwkJSON;
 
         const builder: JwkBuilder =  new JwkBuilder()
             .withKty(kty)
@@ -22,6 +22,8 @@ export class JWKParser {
             .withX5c(x5c)
             .withX5t(x5t)
             .withX5tS256(x5t_S256);
+
+
 
         switch(kty) {
             case EC_KEY_TYPE: {
