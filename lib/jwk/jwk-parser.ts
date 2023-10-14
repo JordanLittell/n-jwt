@@ -10,7 +10,7 @@ export class JWKParser {
     public parse(payload: string) : JWK {
         const jwkJSON = JSON.parse(payload);
 
-        const {kty, use, key_ops, alg, kid, jku, x5u, x5c, x5t, x5t_S256} = jwkJSON;
+        const {kty, use, key_ops, alg, kid, x5u, x5c, x5t, x5t_S256} = jwkJSON;
 
         const builder: JwkBuilder =  new JwkBuilder()
             .withKty(kty)
