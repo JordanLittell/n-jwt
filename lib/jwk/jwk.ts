@@ -4,6 +4,8 @@
  */
 import {SigningAlgorithms} from "../jwa";
 import {RSAPrime} from "./crypto-key-params";
+import {JWKClient} from "@lib/jwk/JWKClient";
+import {HttpClient} from "@lib/http-client";
 
 export const EC_KEY_TYPE = 'EC';
 export const RSA_KEY_TYPE = 'RSA';
@@ -66,6 +68,8 @@ export class JWK {
     x509Thumbprint?: string;
     x509S256Thumbprint?: string;
 
+    private static jwkClient: JWKClient;
+
     // parameters used for generating cryptographic keys:
 
     // RSAPublic
@@ -91,6 +95,22 @@ export class JWK {
 
     // Octet
     k?: string;
+
+    static async fromJKU(url: URL, kid: string) : Promise<JWK> {
+        const jwk = await this.getJWKClient().fetch(url, kid);
+
+        if(!jwk) throw new Error(`Could not find jwk with kid ${kid} from ${url}`);
+
+        return jwk!;
+    }
+
+    static getJWKClient() : JWKClient {
+        return this.jwkClient ? this.jwkClient : new HttpClient();
+    }
+
+    static setJWKClient(client: JWKClient) : void {
+        this.jwkClient = client;
+    }
 
 
     constructor(params: CommonKeyParameters) {

@@ -23,6 +23,8 @@ export class JWKParser {
             .withX5t(x5t)
             .withX5tS256(x5t_S256);
 
+
+
         switch(kty) {
             case EC_KEY_TYPE: {
                 const {crv, x, y}: ECPrivate = jwkJSON;

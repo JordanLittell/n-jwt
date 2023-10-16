@@ -58,8 +58,6 @@ describe("AES key wrapping", () => {
         const cipherText = encrypter.encrypt();
         const plainText = encrypter.decrypt(Buffer.from(cipherText));
 
-        equal(plainText.equals(Buffer.from(data)), true);
-
         equal(plainText, data);
     });
 

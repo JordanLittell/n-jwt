@@ -18,11 +18,10 @@
   },
   "moduleResolution": "node",
   "include": [
-    "lib/**/*",
-    "lib/signing/signer.ts"
+    "lib/**/*"
   ],
   "exclude": [
-    "test/**/*",
+    "test/**/*"
   ],
   "ts-node": {
     "require": ["tsconfig-paths/register.js"],
